@@ -1,4 +1,4 @@
-# OCFrameworks
+# Optimal Control Frameworks
 This repository contains information about the project progress and the LaTeX documentation.
 
 ### Project Objectives

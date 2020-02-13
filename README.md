@@ -1,4 +1,4 @@
-# Optimal Control Frameworks
+# Optimal Control Frameworks for Bipedal Walking of RH5
 This repository contains information about the project progress and the LaTeX documentation.
 
 ### Project Objectives

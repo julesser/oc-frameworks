@@ -1,0 +1,34 @@
+\chapter{Lecture 2: Nonlinear Dynamics}\label{lecture2}
+\section{The Simple Pendulum}
+Even the most simple dynamical systems, e.g. the simple pendulum, can not be solved in a closed form. This is due to the nonlinear characteristics of the underlaying differential equations. But actually you don't have to in order to describe and analyse fundamental dynamical characteristics. 
+
+But what we really care about is the long-term behaviour of the sytem. For low dimensional systems, two central tools are available in order to analyse the systems behaviour: 
+\begin{itemize}
+\item Linearization
+\item Graphical Analysis
+\end{itemize}
+ 
+The equations of motion of the simple pendulum can be derived with the Langrangian as:
+$$ ml^2 \ddot\theta(t) + mgl\sin{\theta(t)} = Q $$ 
+Considering the generalized force $Q$ as combination of damping and a control torque input
+$$ Q = -b\dot\theta(t) +u(t).$$
+For the case of a constant torque this yields
+$$ ml^2 \ddot\theta + b\dot\theta + mgl \sin\theta = u_0.$$
+
+\section{Graphical Analysis}
+\subsection{Fixed Points}
+The central goal of control is to meaninfully shift the vector field via sophisticated control input of a system in order to change its dynamics.  
+So called \textit{phase plots} are useful for visualizing this vector field of two-dimensional systems.  In case of the state vector $x= \begin{bmatrix} \theta \\ \dot{\theta} \end{bmatrix}$ this means $\dot{\theta}$ over $\theta$.
+
+\begin{definition}
+A point the system will remain forever without applying external forces is called a fixed point or a steady state respectively.
+\end{definition}
+The position of fixed points, e.g. stable positions of the pendulum, strongly depend on the parameter of the system (damping, input torque etc.). 
+
+\subsection{Definitions of Stability}
+There are existing different types of stability in order to describe the behaviour next a fixed point $x^{\star}$. The fixed point can be 
+\begin{itemize}
+\item \textit{Stable} in the sense of Lyapunov (i.e. will remain within certain radius)
+\item \textit{Asymptotically stable} (i.e. for $t->\infty$ reaches certain point)
+\item \textit{Exponentially stable} (reaches certain point at defined rate).
+\end{itemize}

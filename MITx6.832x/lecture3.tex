@@ -1,0 +1,65 @@
+\chapter{Lecture 3: Dynamic Programming I}\label{lecture3}
+\section{Control as Optimization}
+\begin{itemize}
+\item The big idea is to formulate control design as an optimization problem.
+\item Given a trajectory $x(.),u(.)$ we want to assign a score (scalar) to decribe the performance.
+\item Additionally we can set constraints in order to exclude trajectories that exceed certain limits (e.g. control limit $\abs{u(t)}<=1$).
+\item The goal is to find a control policy $u=\Pi(t,x)$ that optimizes that score!
+\item When solving optimal control problems, one most often needs numerical approximation.
+\end{itemize}
+The strengths of Optimal Control are that it
+\begin{itemize}
+\item is a very general approach; it can be applied to fully/underactuated, linear/nonlinear systems,
+\item contains an very intuitive approach by describing just the goal and some constraints 
+\item works very well with numerical approximation.
+
+\end{itemize}
+ 
+ 
+\section{Example: Double Integrator}\begin{itemize}
+\item Very simple example that can be solved without numerical approximation.
+\item Consists of "brick of ice" on a flat floor
+\item Goal: Go to origin as fast as possible
+\end{itemize}
+Easiest case: Formulate optimal control as "Bang-Bang". Accelerate (full throttle) then slam on the brakes.
+
+
+\section{Dynamic Programming Algorithm}
+\subsection{Discrete Time Space: Optimal Control as Graph Search}
+For systems with a finite, discrete set of states and a finite, discrete set of actions, dynamic programming also represents a set of very efficient numerical algorithms which can compute optimal feedback controllers.
+
+Cost function
+$$one-step cost: g(s,a)$$
+$$total cost: \sum_{n=0}^{\infty} $$
+Key idea: Additive cost 
+$$\int_0^T g(x(t),u(t)) dt,$$
+There are existing numerous possibilities on how to design the cost function:
+\begin{itemize}
+\item Min-time: $g(s,a) = 1 "if" s~=s_{goal}; 0 if otherwise$
+\item Quadratic cost: $g(x,u)=x^{T}x+u^{T}u$
+\end{itemize}
+There are many algorithms for finding (or approximating) the optimal path from a start to a goal on directed graphs. In dynamic programming, the key insight is that we can find the shortest path from every node by solving recursively for the optimal cost-to-go (the cost that will be accumulated when running the optimal controller) from every node to the goal.
+Recursive form of the optimal control problem:
+\begin{equation} \hat{J}^*(s_i) \Leftarrow \min_{a \in A} \left[ \ell(s_i,a) +
+    \hat{J}^*\left({f(s_i,a)}\right) \right]
+    \end{equation}
+If we know the optimal cost-to-go, then it's easy to extract the optimal policy:
+\begin{equation} \pi^{*}(s_i) = argmin_a
+    \left[ \ell(s_i,a) + J^*\left( f(s_i,a) \right) \right].
+\end{equation}
+
+Limitations:
+\begin{itemize}
+\item Accuracy for continuous systems (discretisation error)
+\item Scaling (curse of dimensionality)
+\item Assumes full state information: Absolutely not necessary to know everything
+\end{itemize}
+
+\subsection{Continous Dynamic Programming}
+
+
+
+
+
+
+\section{Numerical Optimal Control of the pendulum}

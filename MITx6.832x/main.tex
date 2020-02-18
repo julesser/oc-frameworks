@@ -15,6 +15,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
+\usepackage{mathtools}
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 \setlength{\parskip}{\smallskipamount}
@@ -22,9 +23,6 @@
 
 % Set page margins
 \usepackage[top=100pt,bottom=100pt,left=68pt,right=66pt]{geometry}
-
-% Package used for placeholder text
-\usepackage{lipsum}
 
 % Prevents LaTeX from filling out a page to the bottom
 \raggedbottom
@@ -40,32 +38,34 @@
 \pagestyle{fancy}
 
 % Changes the style of chapter headings
-\usepackage{titlesec}
-\titleformat{\chapter}
-   {\normalfont\LARGE\bfseries}{\thechapter.}{1em}{}
-% Change distance between chapter header and text
-\titlespacing{\chapter}{0pt}{50pt}{2\baselineskip}
-
+%\usepackage{titlesec}
+% \usepackage[Glenn]{fncychap}
 % Adds table captions above the table per default
 \usepackage{float}
 \floatstyle{plaintop}
 \restylefloat{table}
-\usepackage{cite}
 
 % Adds space between caption and table
 \usepackage[tableposition=top]{caption}
 
 % Adds hyperlinks to references and ToC
+\usepackage{cite}
 \usepackage{hyperref}
 \hypersetup{hidelinks,linkcolor = black} % Changes the link color to black and hides the hideous red border that usually is created
 
 % If multiple images are to be added, a folder (path) with all the images can be added here 
 \graphicspath{ {Figures/} }
 
+% Algorithms
+\usepackage[ruled,vlined]{algorithm2e}
+
+\newtheorem{definition}{Definition}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
+
+
 % Separates the first part of the report/thesis in Roman numerals
 \frontmatter
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starts the document
 \begin{document}
 
@@ -75,6 +75,7 @@
 \author{Julian Eßer}
 \title{Personal Lecture Notes \\
 MITx6.832x: Underactuated Robotics \\
+(Spring 2019) \\
 {\Large Algorithms for Walking, Running, Swimming, Flying, and Manipulation}}
 
 %%%%% Adds the title page
@@ -91,78 +92,68 @@ MITx6.832x: Underactuated Robotics \\
 \mainmatter
 
 \chapter{Introduction}\label{chapt:intro}
-The purpose of this document is to provide an brief overview of the essential knowledge of the underactuated robotics class \cite{mitx6.832web} from MIT. Special emphasis is on the following topics:\\
+The purpose of this document is to provide a brief overview of the essential knowledge of the underactuated robotics class \cite{mitx6.832web} from MIT taught in Spring 2019. Special emphasis is on the following topics:\\
 \begin{itemize}
 \item Understanding Control as Optimization
 \item Dynamics of Biped Locomotion
 \item Optimization of Biped Locomotion
 \end{itemize}
 
-
-\chapter{Lecture 1: Why Study Robot Dynamics?}
-\section{Background / Motivation}
-The \textbf{motivation} for this course is to
-\begin{itemize}
-\item Build great robots that can do amazing things
-\item Exploit natural dynamics of robots, not just doing dump control
-\item Achieve extraordinary performance in terms of speed, efficiency, or robustness (Honda's ASIMO vs. passive dynamic walkers)
-\item Controlling nonlinear systems without complete control authority
-\item View computation of challenging tasks in robotics (manipulation, autonomous driving) through the lense of dynamics.
-\end{itemize}
-This course is all about nonlinear dynamics and control of underactuated mechanical systems, with an emphasis on computational methods. Especially it covers the \textbf{topics}
-\begin{itemize}
-\item Nonlinear dynamics
-\item Applied optimal and robust control
-\item Motion planning
-\item Examples from biology and applications to legged locomotion, compliant manipulation, underwater robots, and flying machines
-\end{itemize}
-
-\section{Definitions}
-Nonlinear differential equations typically take the form
-$$ \dot{x} = f(x,u) $$
-where $f$ is a vector valued function, $x$ is the state vector and $u$ is the vector of control input and $\dot{x}=\frac{dx}{dt}$ is the time derivative.
-Mechanical Systems are described by second order differential equations. When the state vector is defined as 
-$$x=\begin{bmatrix}q \\ \dot{q}\end{bmatrix},$$ 
-where the system dynamics can be described as
-$$\ddot{q}=f(q,\dot{q}, u).$$
-Since mechanical systems are \textit{control affine}, this specializes to
-$$ \ddot{q}=f_{1}(q,\dot{q})+f_{2}(q,\dot{q})u.$$
-A system of this form is called \textit{underactuated} if $rank[f_{2}]<=n$. 
-Other causes of underactuated include
-\begin{itemize}
-\item Input saturation (e.g. torque limits)
-\item State constraints (e.g. joint limits)
-\item Model uncertainty / state estimation
-\end{itemize}
- 
-\section{Manipulator Equations}
-The equations of motion for simple systems, e.g. a double pendulum, are quite simple to derive. Results, e.g. obtained from an Lagrangian calculation approach, can be expressed in the form of the standard "manipulator equations":
-$$M(q)\ddot{q}+C(q,\dot{q})\ddot{q}=\tau_{g}(q)+Bu$$ 
-where $M$ is the Inertia matrix, $C$ is the matrix of Coriolis terms $\tau_{g}$ covers gravitational torques, $B$ maps inputs to generalized force and u is the control input (either force or torque).
-
-The acceleration then is expressed as
-\begin{equation}\label{eq:eom_dbl_pendl}
-\ddot{q}=M^{-1}(q)[\tau_{g}(q)+Bu-C(q,\dot{q})\dot{q}].
-\end{equation}
-With equation \ref{eq:eom_dbl_pendl}, the dynamics of the systems and accordingly the functions $f_{1}$ and $f_{2}$ are fully defined.
-
-For simulating the dynamics of a robot, it is sufficient to provide the  kinematics in form of a \textit{URDF file}, pass it to an forward Dynamics solver and you get the resulting acceleration and its integrations.
+\include{lecture1}
+\include{lecture2}
+\include{lecture3}
+\include{lecture4}
+\include{lecture5}
+\include{lecture6}
+\include{lecture7}
+\include{lecture8}
+\include{lecture9}
+\include{lecture10}
 
 
-\section{Plan for the Course}
 
-\begin{figure}[h!]
-\begin{center}
-  \includegraphics[width=0.45\textwidth]{Figures/courseOverview.png}
-  \caption{Course overview: Basics first, then simple systems and then various advanced systems.}
-  \label{fig:overview}
-\end{center}
-\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \pagebreak
-
-
 % Adding a bibliography if citations are used in the report
 \bibliographystyle{plain}
 \bibliography{../commonBibFile.bib}

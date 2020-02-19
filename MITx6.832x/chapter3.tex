@@ -1,4 +1,4 @@
-\chapter{Lecture 3: Dynamic Programming I}\label{lecture3}
+\chapter{Lecture 3/4: Dynamic Programming}\label{lecture3}
 \section{Control as Optimization}
 \begin{itemize}
 \item The big idea is to formulate control design as an optimization problem.
@@ -24,15 +24,14 @@ The strengths of Optimal Control are that it
 Easiest case: Formulate optimal control as "Bang-Bang". Accelerate (full throttle) then slam on the brakes.
 
 
-\section{Dynamic Programming Algorithm}
-\subsection{Discrete Time Space: Optimal Control as Graph Search}
+\section{DDP: Discrete Time Space - Optimal Control as Graph Search}
 For systems with a finite, discrete set of states and a finite, discrete set of actions, dynamic programming also represents a set of very efficient numerical algorithms which can compute optimal feedback controllers.
 
 Cost function
 $$one-step cost: g(s,a)$$
 $$total cost: \sum_{n=0}^{\infty} $$
 Key idea: Additive cost 
-$$\int_0^T g(x(t),u(t)) dt,$$
+$$\int_0^T \ell(x(t),u(t)) dt,$$
 There are existing numerous possibilities on how to design the cost function:
 \begin{itemize}
 \item Min-time: $g(s,a) = 1 "if" s~=s_{goal}; 0 if otherwise$
@@ -55,11 +54,24 @@ Limitations:
 \item Assumes full state information: Absolutely not necessary to know everything
 \end{itemize}
 
-\subsection{Continous Dynamic Programming}
+
+\section{DDP: Continuous Time Space}
+\subsection{The Hamilton-Jacobi-Bellman Equation}
+An analogous set of conditions can be found in the continuous time space. For a system
+$$ \dot{x}=f(x,u)$$
+and an infinite-horizon additive cost
+$$\int_0^\infty l(x,u)dt $$
+we have
+$$0=min_u \begin{bmatrix}
+l(x,u)+\dfrac{\delta J^*}{\delta x}f(x,u)
+\end{bmatrix}$$
+$$\Pi^\star=argmin_u\begin{bmatrix}
+l(x,u)+\dfrac{\delta J^*}{\delta x}f(x,u)
+\end{bmatrix}$$
 
 
 
 
 
 
-\section{Numerical Optimal Control of the pendulum}
+

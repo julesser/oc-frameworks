@@ -1,0 +1,73 @@
+\chapter{Lecture 5/6: Acrobots, Cart-poles, and Quadrotors}
+\section{Introduction}
+So far we have covered the following topics:
+\begin{itemize}
+\item Manipulator Equations
+\item Feedback Linearization
+\item Optimal Control
+\item Value Iteration (Algorithm for DDP in discrete time)
+\end{itemize}
+After introducing basics of "classic" non-linear control, we started thinking about control as optimization.
+
+In this chapter the most simple standard models for underactuated robots are introduced. These low-dimensional systems are supposed to capture the essence of the problem without all the real-world complexity of advanced systems. 
+
+\section{Acrobot}
+The Acrobot is a simple underactuated system since it has two DoF. But, in comparison to the double pendulum, it only has one actuator at the elbow so that 
+$\myM{B}=\begin{bmatrix} 0 & 1 \end{bmatrix}^T $.
+Manipulator Equations: 
+\begin{equation*}
+\myM{M}(\myM{q})\myM{\ddot{q}}+\myM{C}(\myM{q,\dot{q}})\myM{\dot{q}}=\tau_g(\myM{q})+\myM{Bu}.
+\end{equation*}
+The goal is to swing-up and balance while satisfying some torque limits. One possible approach to solve this problem is using \textit{value iteration}. But the grids would have to be very fine, in order to get a good solution. There are better tools to solve this problem: LQR!
+
+\subsection{Recap: LQR}
+We have a linear time-invariant system in state-space form
+\begin{equation*} 
+\myM{\dot{x}}=\myM{Ax}+\myM{Bu},
+\end{equation*}
+the cost function is 
+\begin{equation*} 
+J = \int_0^{\infty}[\myM{x}^T\myM{Qx}+\myM{u}	^T\myM{Ru}]dt,
+\end{equation*}
+and the goal is to find the optimal cost-to-go function $J^\star(\myM{x})$ which satisfies the Hamilton-Jacobi-Bellman equation.
+This yields 
+\begin{equation*} 
+J^\star(\myM{x}) = \myM{x}^T\myM{Sx}
+\end{equation*}
+and the optimal control policy 
+\begin{equation*} 
+\myM{u}^\star=\myM{Kx}.
+\end{equation*}
+In the end, this means you get the control policy and the cost-to-go function by
+\begin{equation*} 
+\myM{K,S}=LinearQuadraticRegulator(\myM{A}, \myM{B}, \myM{Q}, \myM{R}).
+\end{equation*}
+So you set $\myM{A}, \myM{B}$ from linearization and choose $\myM{Q}, \myM{R}$ and receive an optimal controller.
+
+\subsection{Linearization of Nonlinear Systems}
+\textbf{Problem:} Our systems are non-linear! How shall we apply Linear-Quadratic Control?!
+
+\textbf{Solution:} We linearize our system around a specific operating point.
+
+But we need to be aware that our linearization only is valid within a certain area around this point. If you go to far away from it, the non-linearity overwhelms your solution. 
+
+\subsection{Controllability vs Underactuated}
+\begin{definition}
+	controllable, if 
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+\section{Cart-pole}
+\section{Quadrotor}
+

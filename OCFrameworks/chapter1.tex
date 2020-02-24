@@ -45,6 +45,7 @@ Crocoddyl is \textbf{efficient} and \textbf{flexible}:
 \end{itemize}
 
 
+
 \section{How-To}
 \subsection{Install}
 \subsubsection{Two ways to go}
@@ -78,12 +79,12 @@ Steps for installing via robotpkg according to the installation section of \cite
 	sudo apt install robotpkg-py27-crocoddyl # for Python 2
 	sudo apt install robotpkg-py36-crocoddyl # for Python 3
 	\end{verbatim}
-	\item Finally you will need to configure your environment variables, e.g.:
+	\item Finally you will need to configure your environment variables (watch out for the python version!), e.g.:
 	\begin{verbatim}
 	export PATH=/opt/openrobots/bin:$PATH
 	export PKG_CONFIG_PATH=/opt/openrobots/lib/pkgconfig:$PKG_CONFIG_PATH
 	export LD_LIBRARY_PATH=/opt/openrobots/lib:$LD_LIBRARY_PATH
-	export PYTHONPATH=/opt/openrobots/lib/python2.7/site-packages:$PYTHONPATH
+	export PYTHONPATH=/opt/openrobots/lib/python3.6/site-packages:$PYTHONPATH
 	\end{verbatim}
 \end{enumerate}
 
@@ -121,10 +122,69 @@ python3 bipedal_walk.py display plot
 \end{verbatim}
 
 
-\section{Abstract Workflow}
-\section{Detailed Example}
-\section{Background}
 
+\section{Abstract Workflow}
+For each node (i.e. each timestep) of the optimal control problem, 
+\begin{enumerate}
+\item Load robot data (URDF, SRDF, Meshes)
+\item Define Action Models (Dynamics+Costs) for running and terminal states 
+	\begin{itemize}
+	\item Setup a cost model
+	\item Add the desired cost functions (state, control, frame-placement etc.)
+	\item Calculate Integrated \& Differential Action Model (IAM/DAM) based on the model
+	\end{itemize}
+\item Define the optimal control problem (knots+IAMs, initPose)
+\item Solve the Shooting Problem
+\end{enumerate}
+
+
+
+\section{Enhancement of the Examples}
+\subsection{Manipulator: Multi-Point Trajectory}
+\subsection{Bipedal Walking: Talos Legs}
+\subsection{Bipdeal Walking: RH5 Legs}
+
+
+
+\section{Issues and Insights}
+\subsection{Issues encountered}
+Since Crocoddyl currently is under active development, there frequently will occure smaller incompatibilities because of versioning issues.This is a brief overview of emerged difficulties:
+\begin{itemize}
+\item Python versioning errors in the examples. 
+
+The examples most often are written for python2, which means that if you are under python3, you will have to adapt some commands (e.g. lists handling, matplotlib, print).
+\item Crocoddyl versioning errors in the examples. 
+
+Since Crocoddyl depends on other libraries (i.e. Pinnochio, example\_robot\_data), there sometimes occured errors with the class because they were not updated. 
+\end{itemize}
+
+\subsection{Cost Functions}
+Notes:
+\begin{itemize}
+\item The cost function can contain multiple \textit{cost items} (i.e state/control error, frame displacements or center of mass tracking).
+\item Weights are considered in the costs via scalar multiplication with the identity matrices (Ix, Ixx etc.) of the according cost item. 
+\item These weighted matrices of cost items are simply summed up within a \textit{costModelContainer}.
+\end{itemize}
+
+\subsection{Bipedal Walking}
+\begin{itemize}
+\item A long walk consists of multiple gaitphases, each phase is a single shooting problem.
+\item These problems are generated with \textit{createWalkingProblem()} involving one left and one right foot step.
+\item Each shooting problem contains various locomotion phases
+	\begin{itemize}
+	\item Double support at beginning (both legs on ground) via \textit{createSwingFootModel()}
+	\item Right step (Swing-up and swing-down phase equally distributed) init via    	\textit{createFootstepModels()}
+	\item Double support again
+	\item Left step
+	\end{itemize}	
+\item In the end, all knots of all phases are basically one \textit{swingFootModel}. They only vary in the adressed foot, and if there is a CoM task or a swingFootTask activated.
+\item The \textit{swingFootModel} is an IAM containing a 
+	\begin{itemize}
+	\item 6D multi-contact model,
+	\item Cost model (CoM position tracking, contact friction cone, foot placement) and
+	\item Differentiation (DAM) and Integration (IAM) routines.
+	\end{itemize}
+\end{itemize}
 
 
 

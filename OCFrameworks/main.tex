@@ -17,6 +17,7 @@
 \usepackage{amsmath}
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{2}
+\usepackage[titletoc]{appendix}
 \setlength{\parskip}{\smallskipamount}
 \setlength{\parindent}{0pt}
 
@@ -95,10 +96,13 @@
 
 \chapter{CONCLUSION AND OUTLOOK}
 
+\begin{appendices}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\include{appendixA}
+\end{appendices}
 
 
 \pagebreak
-
 % Adding a bibliography if citations are used in the report
 \bibliographystyle{plain}
 \bibliography{../commonBibFile.bib}

@@ -186,5 +186,22 @@ Notes:
 	\end{itemize}
 \end{itemize}
 
+\subsection{Joint Limits}
+\begin{itemize}
+\item Input Data: Within the URDF file, for each joint there are specified the
+\begin{itemize}
+	\item torque limit (effort),
+	\item position limits (lower, upper),
+	\item velocity limit.
+\end{itemize}
+\item These limits are not automatically taken into account in Crocoddyl when solving a shooting problem, but explicitly have to be adressed.
+\item \textbf{Torque Limits}: Require the use of specific solvers, standard ddp is not sufficient. Implemented solvers that can handle torque limits explicitly are: 
+\begin{itemize}
+\item BoxDDP (Compare Tassa method \cite{tassa2014control})
+\item BoxFDDP (Novel solver that is under development at LAAS)
+\end{itemize}
+\textbf{State Limits (Pos/Vel)}: Position and Velocity limits can be handled via penalization, i.e. added as cost terms to the optimization problem.  
+\end{itemize}
+
 
 

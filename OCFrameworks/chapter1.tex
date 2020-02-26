@@ -139,13 +139,6 @@ For each node (i.e. each timestep) of the optimal control problem,
 
 
 
-\section{Enhancement of the Examples}
-\subsection{Manipulator: Multi-Point Trajectory}
-\subsection{Bipedal Walking: Talos Legs}
-\subsection{Bipdeal Walking: RH5 Legs}
-
-
-
 \section{Issues and Insights}
 \subsection{Issues encountered}
 Since Crocoddyl currently is under active development, there frequently will occure smaller incompatibilities because of versioning issues.This is a brief overview of emerged difficulties:
@@ -156,6 +149,13 @@ The examples most often are written for python2, which means that if you are und
 \item Crocoddyl versioning errors in the examples. 
 
 Since Crocoddyl depends on other libraries (i.e. Pinnochio, example\_robot\_data), there sometimes occured errors with the class because they were not updated. 
+\item Confusions displaying the results via the Gepetto-Viewer
+
+The Gepetto-Viewer is used for displaying the robots and resulting trajectories from optimization. The examples only contain out of the box solutions. If one wants to simply display a robot in some specified pose (e.g. the initial pose) the following, quite unintuitive, commands have to be applied:
+\begin{verbatim}
+display = crocoddyl.GepettoDisplay(rh5_legs, 4, 4, frameNames=[rightFoot, leftFoot])
+display.display(xs=[x0])
+\end{verbatim}
 \end{itemize}
 
 \subsection{Cost Functions}
@@ -164,26 +164,6 @@ Notes:
 \item The cost function can contain multiple \textit{cost items} (i.e state/control error, frame displacements or center of mass tracking).
 \item Weights are considered in the costs via scalar multiplication with the identity matrices (Ix, Ixx etc.) of the according cost item. 
 \item These weighted matrices of cost items are simply summed up within a \textit{costModelContainer}.
-\end{itemize}
-
-\subsection{Bipedal Walking}
-\begin{itemize}
-\item A long walk consists of multiple gaitphases, each phase is a single shooting problem.
-\item These problems are generated with \textit{createWalkingProblem()} involving one left and one right foot step.
-\item Each shooting problem contains various locomotion phases
-	\begin{itemize}
-	\item Double support at beginning (both legs on ground) via \textit{createSwingFootModel()}
-	\item Right step (Swing-up and swing-down phase equally distributed) init via    	\textit{createFootstepModels()}
-	\item Double support again
-	\item Left step
-	\end{itemize}	
-\item In the end, all knots of all phases are basically one \textit{swingFootModel}. They only vary in the adressed foot, and if there is a CoM task or a swingFootTask activated.
-\item The \textit{swingFootModel} is an IAM containing a 
-	\begin{itemize}
-	\item 6D multi-contact model,
-	\item Cost model (CoM position tracking, contact friction cone, foot placement) and
-	\item Differentiation (DAM) and Integration (IAM) routines.
-	\end{itemize}
 \end{itemize}
 
 \subsection{Joint Limits}
@@ -205,3 +185,91 @@ Notes:
 
 
 
+\section{Discussion of Examples and RH5 Integration}
+This section contains a brief overview of some of the examples that have been modified. Please note that \textbf{core explanations have been added to the examples where seemed appropriate}. All figures and additionaly videos are contained in this repository within the /media directory. 
+
+As stated in the ReadMe of the Repo, Crocoddyl comes with some introductory examples that are written as Jupyter notebooks (.ipynb). While 
+\begin{verbatim}
+examples/notebooks/introduction_to_crocoddyl.ipynb
+\end{verbatim}
+offers a more conceptual overview about crocoddyl, other ones represent basic underactuated systems (e.g. Cartpole swing-up, Bipdeal Walking).
+
+\subsection{Manipulator: Multi-Point Trajectory}
+The task in the tutorial
+\begin{verbatim}
+examples/notebooks/arm_manipulation.ipynb
+\end{verbatim}
+was to find an optimal trajectory for a manipulator from an initial configuration to a target point (red ball). 
+\subsubsection{Extending the Example}
+I extended this example to a multi-point optimal control problem by considering four targets to reach in a row. This extended example can be found in 
+\begin{verbatim}
+/examples/arm_manipulation_trajectory.py
+\end{verbatim}
+Differences to the existing one-target example include:
+\begin{itemize}
+\item Defining an array of the four targets in space
+\item Setup individual cost functions for each of the sequences
+\item Setup running and terminal models for the sequences and finally
+\item Define the shooting problem as row of these sequences 
+\item Optimize the weights of the cost functions successively for the four sequences.
+\end{itemize}
+\subsubsection{Results: Multiple Targets}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\linewidth]{Media/Crocoddyl/ExArm/ArmSolution.png}
+\caption{Multi-Point Optimal Control of the Manipulator for reaching four targets. The high-control peaks could be handled by a more advanced solver (e.g. box-ddp), but were not performed here.}
+\end{figure}
+
+\subsection{Introduction: Bipedal Walking in Crocoddyl}
+\begin{itemize}
+\item A long walk consists of multiple gaitphases, each phase is a single shooting problem.
+\item These problems are generated with \textit{createWalkingProblem()} involving one left and one right foot step.
+\item Each shooting problem contains various locomotion phases
+	\begin{itemize}
+	\item Double support at beginning (both legs on ground) via \textit{createSwingFootModel()}
+	\item Right step (Swing-up and swing-down phase equally distributed) init via    	\textit{createFootstepModels()}
+	\item Double support again
+	\item Left step
+	\end{itemize}	
+\item In the end, all knots of all phases are basically one \textit{swingFootModel}. They only vary in the adressed foot, and if there is a CoM task or a swingFootTask activated.
+\item The \textit{swingFootModel} is an IAM containing a 
+	\begin{itemize}
+	\item 6D multi-contact model,
+	\item Cost model (CoM position tracking, contact friction cone, foot placement) and
+	\item Differentiation (DAM) and Integration (IAM) routines.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Bipdeal Walking: RH5 Legs}
+\subsubsection{Integration Work}
+The main issue that had to be solved was related to the underlying URDF file of the robot. In particular: 
+\begin{itemize}
+\item Choosing one of our several files (abstract-smurf)
+\item Cutting out everything apart from the legs and the root joint
+\item Fixing the mesh file paths: 
+
+We usually define the path relative to the URDF file location, e.g.
+\begin{verbatim}
+"../meshes/stl/RH5_Root_Link.001.stl".
+\end{verbatim}
+The integrated URDF parser in Crocoddyl instead, expects the path specified via the package URI, e.g. 
+\begin{verbatim}
+"package://abstract-smurf/meshes/stl/RH5_Root_Link.001.stl".
+\end{verbatim}
+\item Adjust the contact frames for the Walking Problem.
+\end{itemize}
+\subsubsection{Results: Performing two Steps}
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH52StepsSolution.png}
+  \caption{Optimal Trajectory and Conrol Inputs}
+\end{subfigure}%
+\begin{subfigure}{.4\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH52StepsConvergence.png}
+  \caption{Convergence of Solution}
+\end{subfigure}
+\centering
+\end{figure}

@@ -11,7 +11,8 @@ After introducing basics of "classic" non-linear control, we started thinking ab
 
 In this chapter the most simple standard models for underactuated robots are introduced. These low-dimensional systems are supposed to capture the essence of the problem without all the real-world complexity of advanced systems. 
 
-\section{Acrobot}
+
+\section{Modeling of the Systems}
 The Acrobot is a simple underactuated system since it has two DoF. But, in comparison to the double pendulum, it only has one actuator at the elbow so that 
 $\myM{B}=\begin{bmatrix} 0 & 1 \end{bmatrix}^T $.
 Manipulator Equations: 
@@ -20,7 +21,9 @@ Manipulator Equations:
 \end{equation*}
 The goal is to swing-up and balance while satisfying some torque limits. One possible approach to solve this problem is using \textit{value iteration}. But the grids would have to be very fine, in order to get a good solution. There are better tools to solve this problem: LQR!
 
-\subsection{Recap: LQR}
+
+\section{LQR Control}
+\subsection{Recap LQR}
 We have a linear time-invariant system in state-space form
 \begin{equation*} 
 \myM{\dot{x}}=\myM{Ax}+\myM{Bu},
@@ -47,14 +50,28 @@ So you set $\myM{A}, \myM{B}$ from linearization and choose $\myM{Q}, \myM{R}$ a
 \subsection{Linearization of Nonlinear Systems}
 \textbf{Problem:} Our systems are non-linear! How shall we apply Linear-Quadratic Control?!
 
-\textbf{Solution:} We linearize our system around a specific operating point.
+\textbf{Solution:} We linearize our system around a specific fixed point.
 
 But we need to be aware that our linearization only is valid within a certain area around this point. If you go to far away from it, the non-linearity overwhelms your solution. 
 
-\subsection{Controllability vs Underactuated}
-\begin{definition}
-	controllable, if 
-\end{definition}
+One Optimal Control Algorithm therefore is to combine multiple LQR Controllers that treat all relevant fixed points in order to handle the relevant workspace. 
+
+\section{Throwback: Hand-Designed Control}
+\begin{itemize}
+\item Optimal control is a powerful framework for solving control problems via optimization.
+\item Solving OC problems for non-linear systems is hard!
+\item Sometimes we would be happy to just have any controller (And sometimes they turn out to be even better).
+\item But how can we proof this "hand-designed" are any good? 
+
+-> We proof that they are stable. 
+\end{itemize}
+
+\subsection{Stability Lyapunov Analysis + Control Design}
+We are going to observe the total Energy of the system for analyzing the stability. Lyapunov functions generalize this notion of an energy function to more general systems, which might not be stable in the sense of some mechanical energy. If I can find any positive function, call it $V(\myM{x})$, that gets smaller over time as the system evolves, then I can potentially use $V$ to make a statement about the long-term behavior of the system. $V$ is called a Lyapunov function. 
+
+
+\subsection{Energy Shaping}
+\subsection{Partial Feedback Linearisation}
 
 
 
@@ -65,9 +82,18 @@ But we need to be aware that our linearization only is valid within a certain ar
 
 
 
-	
-	
 
-\section{Cart-pole}
-\section{Quadrotor}
+
+
+
+
+
+
+
+
+
+
+
+
+
 

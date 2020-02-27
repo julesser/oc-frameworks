@@ -1,5 +1,23 @@
 \chapter{Lecture 8/9: Lyapunov Analysis}
 \section{Lyapunov Functions}
+\subsection{Optimization Crash Course}
+\begin{itemize}
+\item Goal: Find $x_{min}$ for an objective (cost) function considering a set of (in/equality-) constraints
+\item Popular objective functions:
+\begin{itemize}
+\item Convex quadratic cost (least squares)
+\item Linear cost
+\end{itemize}
+\item Convex optimization builds on convex cost functions or a convex set
+\end{itemize}
+
+\subsection{Introduction}
+Lyapunov functions generalize this notion of an energy function to more general systems, which might not be stable in the sense of some mechanical energy. If I can find any positive function, call it$V(\myM{x})$, that gets smaller over time as the system evolves, then I can potentially use $V$ to make a statement about the long-term behavior of the system. $V$is called a Lyapunov function. 
+
+\subsection{Computing Lyapunow Functions}
+Idea: Parameterize lyapunov candidate.
+
+
 \section{Lyapunov Analysis with Convex Optimization}
 \section{Lyapunov Analysis for Estimating Regions of Attraction}
 

@@ -140,7 +140,7 @@ For each node (i.e. each timestep) of the optimal control problem,
 
 
 \section{Issues and Insights}
-\subsection{Issues encountered}
+\subsection{Issues Encountered}
 Since Crocoddyl currently is under active development, there frequently will occure smaller incompatibilities because of versioning issues.This is a brief overview of emerged difficulties:
 \begin{itemize}
 \item Python versioning errors in the examples. 
@@ -183,10 +183,47 @@ Notes:
 \textbf{State Limits (Pos/Vel)}: Position and Velocity limits can be handled via penalization, i.e. added as cost terms to the optimization problem.  
 \end{itemize}
 
+\subsection{Introduction: Bipedal Walking in Crocoddyl}
+\begin{itemize}
+\item A long walk consists of multiple gaitphases, each phase is a single shooting problem.
+\item These problems are generated with \textit{createWalkingProblem()} involving one left and one right foot step.
+\item Each shooting problem contains various locomotion phases
+	\begin{itemize}
+	\item Double support at beginning (both legs on ground) via \textit{createSwingFootModel()}
+	\item Right step (Swing-up and swing-down phase equally distributed) init via    	\textit{createFootstepModels()}
+	\item Double support again
+	\item Left step
+	\end{itemize}	
+\item In the end, all knots of all phases are basically one \textit{swingFootModel}. They only vary in the adressed foot, and if a CoM task or a swingFootTask is set.
+\item The \textit{swingFootModel} is an IAM containing a 
+	\begin{itemize}
+	\item 6D multi-contact model,
+	\item Cost model (CoM position tracking, contact friction cone, foot placement) and
+	\item Differentiation (DAM) and Integration (IAM) routines.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Multi-Contact Model}
+\subsubsection{Previous: Assume foot to have a point contact}
+\begin{itemize}
+\item Each \textit{swingFootModel}, meaning each knot of the OC, includes at least one individual contact model.
+\item The number of contact models depends is specified via \textit{supportFootIds}, i.e. the number of foots that currently are not in the air (e.g. biped: 1 for swing-phase, 2 for double-support).
+\item For each point of one foot that actually does touch the ground, a contact has to be added to the according contact model (specified via frame ID)
+\item In the bipedal examples they assume a point-contact, i.e. adding only one contact per supporting foot.
+\item The point-contact is specified via the name of the according link from the URDF.
+\end{itemize}
+\subsubsection{Extension: Consider 4 point contact per foot}
+\begin{itemize}
+\item Each contact model for one supporting foot now contains four contact items instead of one
+\item The cost model contains now four cost items for the four friction cones instead of just one
+
+\item The 
+\end{itemize}
 
 
-\section{Discussion of Examples and RH5 Integration}
-This section contains a brief overview of some of the examples that have been modified. Please note that \textbf{core explanations have been added to the examples where seemed appropriate}. All figures and additionaly videos are contained in this repository within the /media directory. 
+
+\section{Working with the Examples}
+This section contains a brief overview of some of the examples that have been modified. Please note that many \textbf{additional explanations have been added in the commentaries of the examples}. All figures and additionaly videos are contained within the /media directory of the repo \cite{julesserOCFrameworks}. 
 
 As stated in the ReadMe of the Repo, Crocoddyl comes with some introductory examples that are written as Jupyter notebooks (.ipynb). While 
 \begin{verbatim}
@@ -220,28 +257,11 @@ Differences to the existing one-target example include:
 \caption{Multi-Point Optimal Control of the Manipulator for reaching four targets. The high-control peaks could be handled by a more advanced solver (e.g. box-ddp), but were not performed here.}
 \end{figure}
 
-\subsection{Introduction: Bipedal Walking in Crocoddyl}
-\begin{itemize}
-\item A long walk consists of multiple gaitphases, each phase is a single shooting problem.
-\item These problems are generated with \textit{createWalkingProblem()} involving one left and one right foot step.
-\item Each shooting problem contains various locomotion phases
-	\begin{itemize}
-	\item Double support at beginning (both legs on ground) via \textit{createSwingFootModel()}
-	\item Right step (Swing-up and swing-down phase equally distributed) init via    	\textit{createFootstepModels()}
-	\item Double support again
-	\item Left step
-	\end{itemize}	
-\item In the end, all knots of all phases are basically one \textit{swingFootModel}. They only vary in the adressed foot, and if there is a CoM task or a swingFootTask activated.
-\item The \textit{swingFootModel} is an IAM containing a 
-	\begin{itemize}
-	\item 6D multi-contact model,
-	\item Cost model (CoM position tracking, contact friction cone, foot placement) and
-	\item Differentiation (DAM) and Integration (IAM) routines.
-	\end{itemize}
-\end{itemize}
 
-\subsection{Bipdeal Walking: RH5 Legs}
-\subsubsection{Integration Work}
+
+\section{RH5 Results}
+Please note once again that all related plots and additional videos can be found in high-quality in the related github repository \cite{julesserOCFrameworks} of this project.
+\subsection{Integration of the RH5 Legs into Crocoddyl}
 The main issue that had to be solved was related to the underlying URDF file of the robot. In particular: 
 \begin{itemize}
 \item Choosing one of our several files (abstract-smurf)
@@ -258,18 +278,70 @@ The integrated URDF parser in Crocoddyl instead, expects the path specified via 
 \end{verbatim}
 \item Adjust the contact frames for the Walking Problem.
 \end{itemize}
-\subsubsection{Results: Performing two Steps}
+
+\subsection{Performing two Steps}
+Results are shown in Figure \ref{fig:rh5_two_steps}.
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{.4\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH52StepsSolution.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/2Steps/RH52Steps_Solution.png}
   \caption{Optimal Trajectory and Conrol Inputs}
 \end{subfigure}%
 \begin{subfigure}{.4\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH52StepsConvergence.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/2Steps/RH52Steps_Convergence.png}
   \caption{Convergence of Solution}
 \end{subfigure}
+\caption{Results for a solved shooting problem defining two steps.}
+\label{fig:rh5_two_steps}
 \centering
 \end{figure}
+
+\subsection{Performing a Full Gait}
+Results for a full gait are shown in Figure \ref{fig:rh5_full_gait}.
+
+It is possible to constrain the input torques via the limits that are parsed from the URDF. However, the correct solver (box-ddp) needs to be applied to the OC problem for considering these limits.  Results are shown in Figure \ref{fig:rh5_constrain_torque}
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.8\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5Gait_Solution.png}
+  \caption{Results for a walk with three gait-phases. The walk is implemented as a sequence of three  consecutive shooting problems similar to the 2 steps task.}
+\label{fig:rh5_full_gait}
+\end{subfigure}
+\begin{subfigure}{.8\textwidth}
+  \centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5GaitUbound_50PercentSolution.png}
+\caption{Results for full gait with bounded input torques. To be even more restrictive, the available torques form the URDF have been reduced artificially by 50 percent. The effect becomes clear for e.g. the AnkleFT.}
+\label{fig:rh5_constrain_torque}
+\end{subfigure}
+\caption{Unbounded and bounded solution for the full gait.}
+\centering
+\end{figure}
+
+\subsection{Initial Pose Variants}
+The full gait has been initialized according to the pose specifications from the RH5 DFKI smurf file. Below two solutions for other initial poses are presented: One near the zero configuration and one at the zero configuration.
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.8\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitNearZeroConfig_Solution.png}
+  \caption{Solution for the full gait with initial pose \textbf{near} the zero configuration.}
+\label{fig:rh5_full_gait}
+\end{subfigure}
+\begin{subfigure}{.8\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitZeroConfig_Solution.png}
+\caption{Solution for the full gait with initial pose \textbf{at} the zero configuration. The solution appears to be instable and would exceed the torque limits (see video)}
+\label{fig:rh5_constrain_torque}
+\end{subfigure}
+\caption{Variants of the initial pose.}
+\centering
+\end{figure}
+
+
+
+
+ 

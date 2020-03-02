@@ -3,7 +3,7 @@
 \subsection{Motivation}
 Crocoddyl is an \textbf{optimal control library for robot control under contact sequence}. Its solver is based on an efficient Differential Dynamic Programming (DDP) algorithm. Crocoddyl computes optimal trajectories along with optimal feedback gains. It uses Pinocchio for fast computation of robot dynamics and its analytical derivatives \cite{crocoddylweb}. 
 
-Crocoddyl is focused on multi-contact optimal control problem (MCOP) which as the form:
+Crocoddyl is focused on multi-contact optimal control problem (MCOP) which has the form:
 
 $$\mathbf{X}^*,\mathbf{U}^*=
 \begin{Bmatrix} \mathbf{x}^*_0,\cdots,\mathbf{x}^*_N \\
@@ -257,10 +257,32 @@ Differences to the existing one-target example include:
 \caption{Multi-Point Optimal Control of the Manipulator for reaching four targets. The high-control peaks could be handled by a more advanced solver (e.g. box-ddp), but were not performed here.}
 \end{figure}
 
+\subsection{Talos Legs: Bipedal Walking}
+The Crocoddyl library offers an example for bipedal walking with the lower body of the Talos \cite{stasse2017talos} Robot. The results of the solved trajectory can be found in Figure \ref{fig:TalosGait}. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.7\linewidth]{Media/Crocoddyl/ExBiped/TalosGait_Solution.png}
+\caption{Results for a walk with three gait-phases.}
+\label{fig:TalosGait}
+\end{figure}
+
+  
+
 
 
 \section{RH5 Results}
 Please note once again that all related plots and additional videos can be found in high-quality in the related github repository \cite{julesserOCFrameworks} of this project.
+\subsection{Navigating the Files}
+The main file for testing RH5 offers several options for setting up, analyzing and constraining the optimization problem of bipedal walking including
+\begin{itemize}
+\item Choosing a desired URDF 
+\item Specifying gait length and variations in step length/height
+\item Vary the initial pose of the robot
+\item Constraining the torque input (Use different solver)
+\item Defining singular or multiple point contacts per foot (Use different class from biped utils)
+\end{itemize}
+
 \subsection{Integration of the RH5 Legs into Crocoddyl}
 The main issue that had to be solved was related to the underlying URDF file of the robot. In particular: 
 \begin{itemize}

@@ -101,6 +101,12 @@ sudo make install
 \end{verbatim}
 Additionally you will have to install the dependent libraries (i.e. pinocchio, example-robot-data (optional for examples, install Python loaders), gepetto-viewer-corba (optional for display), jupyter (optional for notebooks) and matplotlib (optional for examples) and fix the incude paths.
 
+\subsubsection{For Displaying Results: Additionally Install Gepetto-Viewer}
+In order to see not just 2-dimensional plots, but also observe the 3D robot behaviour, you additionally have to install the gepetto-viewer.
+\begin{verbatim}
+ sudo apt install robotpkg-py36-qt4-gepetto-viewer-corba
+\end{verbatim}
+
 \subsection{Running the Examples}
 Since the installation through robotpkg did not provide you with the examples from the git repository, you should clone the repo \cite{crocoddylweb} for getting the data. You do not have to build the library, since it already is installed. 
 In the cloned repository go to \textit{/examples}. For running e.g. the bipedal walking example, just type
@@ -108,15 +114,12 @@ In the cloned repository go to \textit{/examples}. For running e.g. the bipedal 
 python3 bipedal_walk.py
 \end{verbatim}
 and you will see the calculations for optimal gait trajectories running in the console. 
-You propably want to view your results now. For displaying the results, we need to install the gepetto-viewer:
-\begin{verbatim}
- sudo apt install robotpkg-py36-qt4-gepetto-viewer-corba
-\end{verbatim}
 The examples provide a \textit{plot} and \textit{display} argument. In order to display the 3D results and also plot some data, just do 
 \begin{verbatim}
 gepetto-gui
 \end{verbatim}
-for starting the 3D environment and then, in another terminal
+for starting the 3D environment.
+Then, in another terminal, run the example:
 \begin{verbatim}
 python3 bipedal_walk.py display plot
 \end{verbatim}

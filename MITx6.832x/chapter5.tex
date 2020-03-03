@@ -1,4 +1,7 @@
 \chapter{Lecture 8/9: Lyapunov Analysis}
+Optimal control provides a powerful framework for formulating control problems using the language of optimization. But solving optimal control problems for nonlinear systems is hard! In many cases, we don't really care about finding the optimal controller, but would be satisfied with any controller that is guaranteed to accomplish the specified task. In many cases, we still formulate these problems using computational tools from optimization, and in this chapter we'll learn about tools that can provide guaranteed control solutions for systems that are beyond the complexity for which we can find the optimal feedback.
+
+
 \section{Lyapunov Functions}
 \subsection{Optimization Crash Course}
 \begin{itemize}
@@ -12,12 +15,30 @@
 \end{itemize}
 
 \subsection{Introduction}
-Lyapunov functions generalize this notion of an energy function to more general systems, which might not be stable in the sense of some mechanical energy. If I can find any positive function, call it$V(\myM{x})$, that gets smaller over time as the system evolves, then I can potentially use $V$ to make a statement about the long-term behavior of the system. $V$is called a Lyapunov function. 
-
-\subsection{Computing Lyapunow Functions}
-Idea: Parameterize lyapunov candidate.
+Lyapunov functions generalize the notion of an energy function to more general systems, which might not be stable in the sense of some mechanical energy. If I can find any positive function, call it$V(\myM{x})$, that gets smaller over time as the system evolves, then I can potentially use $V$ to make a statement about the long-term behavior of the system. $V$is called a Lyapunov function. 
 
 
 \section{Lyapunov Analysis with Convex Optimization}
+In this section, we'll look at some computational approaches to verifying the Lyapunov conditions, and even to searching for (the coefficients of) the Lyapunov functions themselves.
+\subsection{Lyapunov Analysis for Linear Systems}
+Imagine you have a linear system
+$\myM{\dot{x}}=\myM{Ax},$
+and can find a Lyapunov function
+$$V(\myM{x})=\myM{x}^T\myM{Px}, \myM{P}=\myM{P}^T>0,$$
+which also satisfies
+$$\myM{\dot{V}(x)}=\myM{x}^T\myM{PAx}+\myM{x}^T\myM{A}^TPx<0.$$
+Then the origin is globally asymptotically stable.
+
+\subsection{Lyapunov Analysis as a Semi-definite Program (SDP)}
+Lyapunov analysis for linear systems has an extremely important connection to convex optimization. In particular, we could have also formulated the Lyapunov conditions for linear systems above using semi-definite programming (SDP). Semidefinite programming is a subset of convex optimization -- an extremely important class of problems for which we can produce efficient algorithms that are guaranteed find the global optima solution 
+\subsection{Sums-of-squares Optimization}
+It turns out that in the same way that we can use SDP to search over the positive quadratic equations, we can generalize this to search over the positive polynomial equations.
+
+
 \section{Lyapunov Analysis for Estimating Regions of Attraction}
+There is another very important connection between Lyapunov functions and the concept of an invariant set: any sub-level set of a Lyapunov function is also an invariant set. This gives us the ability to use sub-level sets of a Lyapunov function as approximations of the region of attraction for nonlinear systems.
+
+Now we have arrived at the tool that I believe can be a work-horse for many serious robotics applications. Most of our robots are not actually globally stable (that's not because they are robots -- if you push me hard enough, I will fall down, too), which means that understanding the regions where a particular controller can be guaranteed to work can be of critical importance.
+
+Sums-of-squares optimization effectively gives us an oracle which we can ask: is this polynomial positive for all x? To use this for regional analysis, we have to figure out how to modify our questions to the oracle so that the oracle will say "yes" or "no" when we ask if a function is positive over a certain region which is a subset of R. That trick is called the S-procedure. It is closely related to the Lagrange multipliers from constrained optimization, and has deep connections to "Positivstellensatz" from algebraic geometry.
 

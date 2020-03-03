@@ -69,6 +69,8 @@ One Optimal Control Algorithm therefore is to combine multiple LQR Controllers t
 \item Solving OC problems for non-linear systems is hard!
 \item Sometimes we would be happy to just have any controller (And sometimes they turn out to be even better).
 \item But how can we proof this "hand-designed" are any good? 
+\end{itemize}
+
 \section{Partial Feedback Linearization (Acrobot,Cart-pole)}
 Although we cannot always simplify the full dynamics of the system, it is still possible to linearize a portion of the system dynamics. The technique is called partial feedback linearization.
 \begin{itemize}
@@ -78,7 +80,6 @@ Although we cannot always simplify the full dynamics of the system, it is still 
 One of the most important lessons from partial feedback linearization, is the idea that if you have m actuators, then you basically get to control exactly m quantities of your system.
 
 -> We proof that they are stable. 
-\end{itemize}
 
 \section{Swing-Up Control: Energy Shaping (Acrobot,Cart-pole)}
 If we seek to design a nonlinear feedback control policy which drives the simple pendulum from any initial condition to the unstable fixed point, a very reasonable strategy would be to use actuation to regulate the energy of the pendulum to place it on this homoclinic orbit, then allow the system dynamics to carry us to the unstable fixed point.

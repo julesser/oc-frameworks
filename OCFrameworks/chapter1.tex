@@ -321,47 +321,92 @@ Results are shown in Figure \ref{fig:rh5_two_steps}.
 \end{figure}
 
 \subsection{Performing a Full Gait}
-Results for a full gait are shown in Figure \ref{fig:rh5_full_gait}.
-
-It is possible to constrain the input torques via the limits that are parsed from the URDF. However, the correct solver (box-ddp) needs to be applied to the OC problem for considering these limits.  Results are shown in Figure \ref{fig:rh5_constrain_torque}
+Results for a full gait (6 consecutive steps) are shown in Figure \ref{fig:rh5_full_gait}.
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{.8\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5Gait_Solution.png}
-  \caption{Results for a walk with three gait-phases. The walk is implemented as a sequence of three  consecutive shooting problems similar to the 2 steps task.}
-\label{fig:rh5_full_gait}
+  \caption{Solution for states and torques.}
 \end{subfigure}
 \begin{subfigure}{.8\textwidth}
   \centering
-\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5GaitUbound_50PercentSolution.png}
-\caption{Results for full gait with bounded input torques. To be even more restrictive, the available torques form the URDF have been reduced artificially by 50 percent. The effect becomes clear for e.g. the AnkleFT.}
-\label{fig:rh5_constrain_torque}
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5Gait_CoM.png}
+\caption{CoM results.}
 \end{subfigure}
-\caption{Unbounded and bounded solution for the full gait.}
+\caption{Results for a walk with three gait-phases. The walk is implemented as a sequence of three  consecutive shooting problems similar to the 2 steps task.}
+\label{fig:rh5_full_gait}
 \centering
 \end{figure}
 
-\subsection{Initial Pose Variants}
-The full gait has been initialized according to the pose specifications from the RH5 DFKI smurf file. Below two solutions for other initial poses are presented: One near the zero configuration and one at the zero configuration.
+\subsection{Torque-Constrained Full Gait}
+It is possible to constrain the input torques via the limits that are parsed from the URDF. However, the correct solver (box-ddp) needs to be applied to the OC problem for considering these limits.  Results are shown in Figure \ref{fig:rh5_constrain_torque}
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.8\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5GaitUbound50Percent_Solution.png}
+  \caption{Solution for states and torques.}
+\end{subfigure}
+\begin{subfigure}{.8\textwidth}
+  \centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5GaitUbound50Percent_CoM.png}
+\caption{CoM results.}
+\end{subfigure}
+\caption{Results for full gait with bounded input torques. To be even more restrictive, the available torques form the URDF have been reduced artificially by 50 percent. The effect becomes clear for e.g. the AnkleFT.}
+\label{fig:rh5_constrain_torque}
+\centering
+\end{figure}
+
+\subsection{Initial Pose Variants: Starting Near the Zero Configuration}
+The full gait has been initialized according to the pose specifications from the RH5 DFKI smurf file. In this and the following section, two solutions for other initial poses are presented: One near the zero configuration and one at the zero configuration.
 
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{.8\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitNearZeroConfig_Solution.png}
-  \caption{Solution for the full gait with initial pose \textbf{near} the zero configuration.}
-\label{fig:rh5_full_gait}
+  \caption{Solution for states and torques}.
 \end{subfigure}
 \begin{subfigure}{.8\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitZeroConfig_Solution.png}
-\caption{Solution for the full gait with initial pose \textbf{at} the zero configuration. The solution appears to be instable and would exceed the torque limits (see video)}
-\label{fig:rh5_constrain_torque}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitNearZeroConfig_CoM.png}
+\caption{CoM results.}
 \end{subfigure}
-\caption{Variants of the initial pose.}
+\caption{Results for the full gait with initial pose \textbf{near} the zero configuration. q0=[0,0,-0.1,0.2,0,-0.1, 0,0,-0.1,0.2,0,-0.1] where  n=12 and represents the joint angles [rad] for the left and right leg.}
+\label{fig:rh5_init_near_zero}
 \centering
 \end{figure}
+
+\subsection{Initial Pose Variants: Starting At the Zero Configuration}
+Initializing at the zero configuration turns out to be more critical. Sometimes the solver converges to a feasable solution (Figure \ref{fig:rh5_init_at_zero}), sometimes it does not find a proper solution (Figure \ref{fig:rh5_init_at_zero_failed_solver}).
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.8\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitZeroConfig_Solution.png}
+  \caption{Solution for states and torques}.
+\end{subfigure}
+\begin{subfigure}{.8\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitZeroConfig_CoM.png}
+\caption{CoM results.}
+\end{subfigure}
+\caption{Results for the full gait with initial pose \textbf{at} the zero configuration.}
+\label{fig:rh5_init_at_zero}
+\centering
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitZeroConfig_Solution_FailedSolver.png}
+\caption{Another result for the full gait with initial pose \textbf{at} the zero configuration. The solution appears to be instable and would exceed the torque limits (see video).}
+\label{fig:rh5_init_at_zero_failed_solver}
+\end{figure}
+
+
+
+
 
 
 

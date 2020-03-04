@@ -407,6 +407,33 @@ Initializing at the zero configuration turns out to be more critical. Sometimes 
 \label{fig:rh5_init_at_zero_failed_solver}
 \end{figure}
 
+\subsection{Towards Periodic Joint Trajectories}
+All previous results share a common pattern: While the trajectories for joint velocity and input torque are mostly periodic, the joint trajectories appear to be not. Especially, the absolute value of several joints increases over time. Investigations have shown that this pattern can be prevented by modifying the cost function. When it comes to joint movements, the state regression penalization is crucial. 
+
+Increasing the state regression cost item by one dimension (from 1e1 to 1e2) leads to
+\begin{itemize}
+\item Periodic joint trajectories and
+\item Bounded joint limits. 
+\end{itemize} 
+The results are shown in Figure \ref{fig:rh5_periodic}.
+   
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.8\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/FixedPeriodicity/RH5PeriodicGait_Solution.png}
+  \caption{Solution for states and torques}.
+\end{subfigure}
+\begin{subfigure}{.8\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/FixedPeriodicity/RH5PeriodicGait_CoM.png}
+\caption{CoM results.}
+\end{subfigure}
+\caption{Increasing the state regression cost item leads to a more periodic and bounded solution regarding the joint position trajectories.}
+\label{fig:rh5_periodic}
+\centering
+\end{figure}
+
 
 
 

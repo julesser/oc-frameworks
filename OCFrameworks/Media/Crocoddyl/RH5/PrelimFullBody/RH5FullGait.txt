@@ -1,0 +1,2 @@
+Currently the solver is crashing for more than 2 Steps. 
+Next Action: Create suited cost functions for humanoid.

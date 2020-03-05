@@ -161,6 +161,11 @@ display.display(xs=[x0])
 \end{verbatim}
 \end{itemize}
 
+\subsection{Limitations}
+\begin{itemize}
+\item No possibility to model 4 contact points per foot since the solver can't properly handle redundant constraints. 
+\end{itemize}
+
 \subsection{Cost Functions}
 Notes:
 \begin{itemize}
@@ -188,6 +193,7 @@ Notes:
 
 \subsection{Introduction: Bipedal Walking in Crocoddyl}
 \begin{itemize}
+\item The desired foot step trajectory simply is an equally distributed line of knots specified via the desired stepheigh and steplength. 
 \item A long walk consists of multiple gaitphases, each phase is a single shooting problem.
 \item These problems are generated with \textit{createWalkingProblem()} involving one left and one right foot step.
 \item Each shooting problem contains various locomotion phases
@@ -201,9 +207,19 @@ Notes:
 \item The \textit{swingFootModel} is an IAM containing a 
 	\begin{itemize}
 	\item 6D multi-contact model,
-	\item Cost model (CoM position tracking, contact friction cone, foot placement) and
+	\item Cost model and
 	\item Differentiation (DAM) and Integration (IAM) routines.
 	\end{itemize}
+\end{itemize}
+
+\subsection{Cost Function for Bipedal Walking}
+The main cost items (weights in brackets)utilized in the example are 
+\begin{itemize}
+\item (1e6) CoM tracking
+\item (1e6) Foot tracking
+\item (1e1) Friction cone per contact point
+\item (1e1) State regression, i.e. penalize joint variance
+\item (1e-1) Control input regression, i.e. penalize control effort
 \end{itemize}
 
 \subsection{Multi-Contact Model}
@@ -215,13 +231,15 @@ Notes:
 \item In the bipedal examples they assume a point-contact, i.e. adding only one contact per supporting foot.
 \item The point-contact is specified via the name of the according link from the URDF.
 \end{itemize}
-\subsubsection{Extension: Consider 4 point contact per foot}
+\subsubsection{[aborted] Extension: Consider 4 point contact per foot}
+The key implementation idea:
 \begin{itemize}
 \item Each contact model for one supporting foot now contains four contact items instead of one
-\item The cost model contains now four cost items for the four friction cones instead of just one
-
-\item The 
+\item The cost model contains now four cost items for the four friction cones instead of just one 
 \end{itemize}
+The simulation did not run at all with this kind of model, neither did the solver showed any convergence. An explanation might be the following: 
+
+By providing 4/8 contact items (one support foot, double support while standing) with each 6 constraints (position, rotation) we overconstrain the dynamics of the system. The underlaying dynamics solver from the crocoddyl library does not seem to be able to handle these redundant constraints properly and fails.  
 
 
 

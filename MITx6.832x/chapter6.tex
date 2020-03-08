@@ -4,9 +4,15 @@ The\textbf{ overall goal} is to specify complex behaviors with simple objective 
 
 But the computational tools that we've provided so far have been \textbf{limited} in some important ways:
 \begin{itemize}
-\item \textbf{Dynamic programming} involves putting a mesh over the state space -> Stuck in low-dimensional systems.
-\item \textbf{LQR} + \textbf{Linearization} around an operating point; applicable to high-dimensional systems -> Linearization only valid for a certain region of the state space
-\item \textbf{Lyapunov Analysis via SDP/SOS} softens the requirements by not searching for the optimal controller, but only searching for stability. It does so for non-linear systems and all $\myM{x}$ (whole state-space)-> No controller actually synthesised + somehow limited to simple Lyapunov functions (quadratic, polynomials etc) which might limit the control design  
+\item \textbf{Dynamic programming} involves putting a mesh over the state space 
+
+-> Stuck in low-dimensional systems.
+\item \textbf{LQR} + \textbf{Linearization} around an operating point; applicable to high-dimensional systems 
+
+-> Linearization only valid for a certain region of the state space
+\item \textbf{Lyapunov Analysis via SDP/SOS} softens the requirements by not searching for the optimal controller, but only searching for stability. It does so for non-linear systems and all $\myM{x}$ (whole state-space).
+
+-> No controller actually synthesised + somehow limited to simple Lyapunov functions (quadratic, polynomials etc) which might limit the control design  
 \end{itemize}
 But we have not yet provided any real computational tools for approximate optimal control that work for high-dimensional systems beyond the linearization around a goal. That is precisely the goal for this chapter.
 
@@ -44,7 +50,7 @@ Intro
 \section{Trajectory Optimization as a Nonlinear Program}
 As written above, the optimization above is an optimization over continuous trajectories. In order to formulate this as a numerical optimization, we must parameterize it with a finite set of numbers. 
 
-In order to numerically solve this problem, we need to \textbf{discretise} this (continuous) formulation \textbf{over time}. Different approaches on how to do this, are:
+Different approaches on how to do this, are:
 \begin{itemize}
 \item Idea 1). \textbf{Direct Transcription}: Fix breakpoints at even intervals $dt$ and use Euler integration. Decision variables are $x,n$ 
 \item Idea 2.) \textbf{Direct Shooting Methods} - Idea: Destrict decision variables to only $u$ and and compute $x$ ourselves by knowing $x_0$ and $u(\cdot)$ via the simple forward dynamics
@@ -54,4 +60,25 @@ $$x[2]=A\cdot(x[1]=Ax_0+Bu[0])+Bu[0]$$
 $$...$$
 \item Idea 3.) \textbf{Direct Collocation:} Assume first-order polynomial for $\myM{u}(t)$ and cubic polynomial $\myM{x}(t)$.
 \end{itemize}
+
+
 \section{Pontryagins's Minimum Principle}
+
+
+\section{Trajectory Stabilization: Local Trajectory Feedback Design}
+What we want is to move robots in the real world. Therefore it is not useful to have only one exact trajectory, but we need to allow the robot to move in a \textbf{band around our target trajectory}. 
+
+\textbf{Idea}: Locally linearize around our points from the trajectory, so that we can apply tools from linear control again.
+
+\subsection{Linear Model-predictive Control}
+Locally stabilizes a \textbf{constrained} system.
+\subsection{Time-varying LQR}
+Locally stabilizes $\myM{x}_0(t), \myM{u}_0(t)$
+
+\section{Iterative LQR}
+
+
+
+  
+
+

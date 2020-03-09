@@ -21,8 +21,76 @@ The most elementary model of passive dynamic walking, first used in the context 
 
 
 \section{Simple Models of Running}
+There are existing various definitions of running:
+\begin{itemize}
+\item Existence of an Aerial Phase
+\item Exchange of Energy 
+\end{itemize}
+Why do we study simple models?
+\begin{itemize}
+\item Tractable
+\item Mechanical Insights
+\item Comparative Biology: Fundamental Principles?
+\item As a 'Template' for Higher-DOF Robots
+\end{itemize}
 \subsection{The Spring-Loaded Inverted Pendulum}
-\subsection{The Planar Monopod Hopper}
+\subsubsection{Assumptions}
+\begin{itemize}
+\item Masless leg -> command $\theta$ instantaneously
+\item Perfectly \textbf{elastic} collision -> Energy is always conserved (thread to stability)
+\item When the foot is on ground, we have a pin joint i.e. infinite friction (no sliding)
+\end{itemize}
+\subsubsection{SLIP Modeling}
+The model is a point mass, $m$ , on top of a massless, springy leg with rest length of
+$l_0$, and spring constant $k$. The state of the system is given by $x,y$ the position of the center of mass, and the length,$l$ , and angle $\theta$ of the leg. Like the rimless wheel, the dynamics are modeled piecewise - with one dynamics governing the flight phase, and another governing the stance phase.
 
+Flight Phase. State variables: $\myM{x}=[x,y,\dot{x},\dot{y}]^T$. Dynamics are
+$$\dot{\myM{x}}\begin{bmatrix} \dot{x} \\ \dot{y} \\ 0 \\ - g
+      \end{bmatrix}.$$
+      
+Stance Phase. State variables: $\myM{x}=[r,\theta, \dot{r},\dot{\theta}]$. Kinematics are
+$$x = \begin{bmatrix} - r \sin\theta \\ r
+      \cos\theta \end{bmatrix}.$$
+Energy is given by
+$$T = \frac{m}{2}
+      (\dot{r}^2 + r^2 \dot\theta^2 ), \quad U = mgr\cos\theta +
+      \frac{k}{2}(r_0 - r)^2.$$
+Putting these into Lagrange yields:
+\begin{equation}
+  m \ddot{r} - m r \dot\theta^2 + m g \cos\theta - k (r_0 -r) = 0  
+\end{equation}
+\begin{equation}
+m r^2 \ddot{\theta} + 2mr\dot{r}\dot\theta - mgr \sin\theta = 0
+\end{equation}
+\subsubsection{SLIP Control}
+Choose $\theta_{touchdown}$ during aerial phase. 
+
+Goal: Design controller $u[n]=\Pi(y[n])$ to stabilize $y^d$.
+\begin{itemize}
+\item Idea 1: find $u\star$ st. $y^\star=P(y^d,u^\star)$. 
+
+\textbf{Linearize} P around $(y^d, u^p)$ + do (discrete time) \textbf{LQR}.
+
+Results in an exponential convergence to the fixed point. 
+\item Idea 2: Deadbeat Control.
+
+If P is invertible,
+$$u[n]=P^{-1}(y^d,y[n])$$
+If exists, results in an convergence to the fixed-point via one timestep.
+\end{itemize}
+
+\subsection{Continuous Control: The Planar Monopod Hopper}
+\begin{itemize}
+\item Hopping Height (push at toe-off)
+\item Foot Touchdown to regulate speed
+\item Stabilize attitude during stance
+\end{itemize}
 
 \section{A Simple Model That Can Walk and Run}
+
+
+
+
+
+
+

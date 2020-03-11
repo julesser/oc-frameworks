@@ -289,10 +289,8 @@ The Crocoddyl library offers an example for bipedal walking with the lower body 
 \end{figure}
 
   
-
-
-
-\section{RH5 Results}
+  
+\section{Results: RH5 Legs}
 Please note once again that all related plots and additional videos can be found in high-quality in the related github repository \cite{julesserOCFrameworks} of this project.
 \subsection{Navigating the Files}
 The main file for testing RH5 offers several options for setting up, analyzing and constraining the optimization problem of bipedal walking including
@@ -328,12 +326,12 @@ Results are shown in Figure \ref{fig:rh5_two_steps}.
 \centering
 \begin{subfigure}{.4\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/2Steps/RH52Steps_Solution.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/2Steps/RH52Steps_Solution.png}
   \caption{Optimal Trajectory and Conrol Inputs}
 \end{subfigure}%
 \begin{subfigure}{.4\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/2Steps/RH52Steps_Convergence.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/2Steps/RH52Steps_Convergence.png}
   \caption{Convergence of Solution}
 \end{subfigure}
 \caption{Results for a solved shooting problem defining two steps.}
@@ -345,15 +343,20 @@ Results are shown in Figure \ref{fig:rh5_two_steps}.
 Results for a full gait (6 consecutive steps) are shown in Figure \ref{fig:rh5_full_gait}.
 \begin{figure}[h!]
 \centering
-\begin{subfigure}{.8\textwidth}
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5Gait_Solution.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/RH5Gait_Solution.png}
   \caption{Solution for states and torques.}
 \end{subfigure}
-\begin{subfigure}{.8\textwidth}
+\begin{subfigure}{.5\textwidth}
   \centering
-\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5Gait_CoM.png}
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/RH5Gait_CoM2.png}
 \caption{CoM results.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/RH5Gait_ContactWrenches.png}
+\caption{Contact wrenches.}
 \end{subfigure}
 \caption{Results for a walk with three gait-phases. The walk is implemented as a sequence of three  consecutive shooting problems similar to the 2 steps task.}
 \label{fig:rh5_full_gait}
@@ -366,12 +369,12 @@ It is possible to constrain the input torques via the limits that are parsed fro
 \centering
 \begin{subfigure}{.8\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5GaitUbound50Percent_Solution.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/BoundedInput/RH5GaitUbound50Percent_Solution.png}
   \caption{Solution for states and torques.}
 \end{subfigure}
 \begin{subfigure}{.8\textwidth}
   \centering
-\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/RH5GaitUbound50Percent_CoM.png}
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/BoundedInput/RH5GaitUbound50Percent_CoM.png}
 \caption{CoM results.}
 \end{subfigure}
 \caption{Results for full gait with bounded input torques. To be even more restrictive, the available torques form the URDF have been reduced artificially by 50 percent. The effect becomes clear for e.g. the AnkleFT.}
@@ -386,12 +389,12 @@ The full gait has been initialized according to the pose specifications from the
 \centering
 \begin{subfigure}{.8\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitNearZeroConfig_Solution.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/InitPoseVariants/RH5GaitInitNearZeroConfig_Solution.png}
   \caption{Solution for states and torques}.
 \end{subfigure}
 \begin{subfigure}{.8\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitNearZeroConfig_CoM.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/InitPoseVariants/RH5GaitInitNearZeroConfig_CoM.png}
 \caption{CoM results.}
 \end{subfigure}
 \caption{Results for the full gait with initial pose \textbf{near} the zero configuration. q0=[0,0,-0.1,0.2,0,-0.1, 0,0,-0.1,0.2,0,-0.1] where  n=12 and represents the joint angles [rad] for the left and right leg.}
@@ -405,12 +408,12 @@ Initializing at the zero configuration turns out to be more critical. Sometimes 
 \centering
 \begin{subfigure}{.8\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitZeroConfig_Solution.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/InitPoseVariants/RH5GaitInitZeroConfig_Solution.png}
   \caption{Solution for states and torques}.
 \end{subfigure}
 \begin{subfigure}{.8\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitZeroConfig_CoM.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/InitPoseVariants/RH5GaitInitZeroConfig_CoM.png}
 \caption{CoM results.}
 \end{subfigure}
 \caption{Results for the full gait with initial pose \textbf{at} the zero configuration.}
@@ -420,7 +423,7 @@ Initializing at the zero configuration turns out to be more critical. Sometimes 
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/InitPoseVariants/RH5GaitInitZeroConfig_Solution_FailedSolver.png}
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/InitPoseVariants/RH5GaitInitZeroConfig_Solution_FailedSolver.png}
 \caption{Another result for the full gait with initial pose \textbf{at} the zero configuration. The solution appears to be instable and would exceed the torque limits (see video).}
 \label{fig:rh5_init_at_zero_failed_solver}
 \end{figure}
@@ -437,18 +440,94 @@ The results are shown in Figure \ref{fig:rh5_periodic}.
    
 \begin{figure}[h!]
 \centering
-\begin{subfigure}{.8\textwidth}
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/FixedPeriodicity/RH5PeriodicGait_Solution.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/FixedPeriodicity/RH5PeriodicGait_Solution.png}
   \caption{Solution for states and torques}.
 \end{subfigure}
-\begin{subfigure}{.8\textwidth}
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5/FixedPeriodicity/RH5PeriodicGait_CoM.png}
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/FixedPeriodicity/RH5PeriodicGait_CoM.png}
 \caption{CoM results.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/FixedPeriodicity/RH5PeriodicGait_ContactWrenches.png}
+\caption{Contact wrenches.}
 \end{subfigure}
 \caption{Increasing the state regression cost item leads to a more periodic and bounded solution regarding the joint position trajectories.}
 \label{fig:rh5_periodic}
+\centering
+\end{figure}
+
+
+
+\section{Results: RH5 Legs + Torso}
+The results from the last section give a first impression, of how optimal control for bipedal walking applied to RH5 can look like. The natural next step is to extend the analysed robot model with the torso. This an especially useful step towards first real-world experiments on the robot, since the computational unit is integrated within the torso and it therefore would be difficult to only control the RH5 legs. 
+
+\subsection{Necessary Adjustments}
+Including the torso in our analysis, we in particular include three additional DoFs (Body-Roll, Body-Pitch, Body-Yaw) that need to be considered. The following adjustments were taken:
+\begin{itemize}
+\item Create an appropriate URDF version based on the abstract-urdf
+\item Consider the dimensional changes of the joint space within the implementation
+\item Adjust the initial pose of the robot
+\item Extend the plotting functionalities for further analysis
+\end{itemize}
+
+\subsection{Adopted Findings from Previous Analysis of the Legs}
+Within the previous lection different aspects have been covered. For the continuing analysis we will cherry-pick and apply the most promising ones. In particular, this means to 
+\begin{itemize}
+\item Performing a full gait (6 consecutive steps),
+\item Consider bounded input torques, but only to the extend defined in the URDF (no additional artificially reduction)
+\item Choose an initial pose that is as close as possible to the zero configuration
+\item Have special emphisis on the state weights in order to achieve periodic joint movements.
+\end{itemize}
+
+\subsection{Performing a Full Gait}
+Results for a full gait (6 consecutive steps) are shown in Figure \ref{fig:rh5Torso_full_gait}. This first shot without proper adjustment of the cost functions revealed an interesting pattern: Although stable, the body pitch (joint 2 in the upper plot) increases within each step and therefore is not periodically. As can be seen in the related video, this means the torso is going to 'fall' with each step more into the right direction. 
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/RH5TorsoGait_Solution.png}
+  \caption{Solution for states and torques.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/RH5TorsoGait_CoM2.png}
+\caption{CoM results.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/RH5TorsoGait_ContactWrenches.png}
+\caption{Contact wrenches.}
+\end{subfigure}
+\caption{Results for the RH5 legs + torso for a full gait (6 steps).}
+\label{fig:rh5Torso_full_gait}
+\centering
+\end{figure}
+
+\subsection{Towards a Stable Torso}
+In order to handle the appeared problems with the torso drift during the walk, we have to adjust the cost functions. Further analysis revealed, that a modification of the individual weights for the state regression cost item can lead to a stabilised upper body.
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/FixTorsoFalling/RH5TorsoGait_FixFalling_Solution.png}
+  \caption{Solution for states and torques.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/FixTorsoFalling/RH5TorsoGait_FixFalling_CoM2.png}
+\caption{CoM results.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/FixTorsoFalling/RH5TorsoGait_FixFalling_ContactWrenches.png}
+\caption{Contact wrenches.}
+\end{subfigure}
+\caption{Results for the RH5 legs + torso for a full gait with an appropriate torso movement. This means, the main usage of the torso for this gait is to compensate the leg-swinging via slight rolls of the body, while pitch and jaw are minor.}
+\label{fig:rh5Torso_full_gait}
 \centering
 \end{figure}
 

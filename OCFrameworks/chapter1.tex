@@ -486,47 +486,63 @@ Within the previous lection different aspects have been covered. For the continu
 \subsection{Performing a Full Gait}
 Results for a full gait (6 consecutive steps) are shown in Figure \ref{fig:rh5Torso_full_gait}. This first shot without proper adjustment of the cost functions revealed an interesting pattern: Although stable, the body pitch (joint 2 in the upper plot) increases within each step and therefore is not periodically. As can be seen in the related video, this means the torso is going to 'fall' with each step more into the right direction. 
 \begin{figure}[h!]
-\centering
 \begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/RH5TorsoGait_Solution.png}
-  \caption{Solution for states and torques.}
+ 	 \centering
+	 \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/RH5TorsoGait_Solution.png}
+ 	 \caption{Solution for states and torques.}
 \end{subfigure}
+\hfill
 \begin{subfigure}{.5\textwidth}
-  \centering
-\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/RH5TorsoGait_CoM2.png}
-\caption{CoM results.}
+  	\centering
+  	\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/RH5TorsoGait_BaseCoord.png}
+  	\caption{Floating base.}
 \end{subfigure}
+\medskip
 \begin{subfigure}{.5\textwidth}
-  \centering
-\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/RH5TorsoGait_ContactWrenches.png}
-\caption{Contact wrenches.}
+  	\centering
+	\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/RH5TorsoGait_ContactWrenches.png}
+	\caption{Contact wrenches.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{.5\textwidth}
+  	\centering
+	\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/RH5TorsoGait_CoM2.png}
+	\caption{Center of mass.}
 \end{subfigure}
 \caption{Results for the RH5 legs + torso for a full gait (6 steps).}
 \label{fig:rh5Torso_full_gait}
 \centering
 \end{figure}
 
+
+
 \subsection{Towards a Stable Torso}
 In order to handle the appeared problems with the torso drift during the walk, we have to adjust the cost functions. Further analysis revealed, that a modification of the individual weights for the state regression cost item can lead to a stabilised upper body.
 \begin{figure}[h!]
-\centering
 \begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/FixTorsoFalling/RH5TorsoGait_FixFalling_Solution.png}
-  \caption{Solution for states and torques.}
+ 	 \centering
+	 \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/FixTorsoFalling/RH5TorsoGait_FixFalling_Solution.png}
+ 	 \caption{Solution for states and torques.}
 \end{subfigure}
+\hfill
 \begin{subfigure}{.5\textwidth}
-  \centering
-\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/FixTorsoFalling/RH5TorsoGait_FixFalling_CoM2.png}
-\caption{CoM results.}
+  	\centering
+  	\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/FixTorsoFalling/RH5TorsoGait_FixFalling_BaseCoord.png}
+  	\caption{Floating base.}
 \end{subfigure}
+\medskip
 \begin{subfigure}{.5\textwidth}
-  \centering
-\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/FixTorsoFalling/RH5TorsoGait_FixFalling_ContactWrenches.png}
-\caption{Contact wrenches.}
+  	\centering
+	\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/FixTorsoFalling/RH5TorsoGait_FixFalling_ContactWrenches.png}
+	\caption{Contact wrenches.}
 \end{subfigure}
-\caption{Results for the RH5 legs + torso for a full gait with an appropriate torso movement. This means, the main usage of the torso for this gait is to compensate the leg-swinging via slight rolls of the body, while pitch and jaw are minor.}
+\hfill
+\begin{subfigure}{.5\textwidth}
+  	\centering
+	\includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Torso/FixTorsoFalling/RH5TorsoGait_FixFalling_CoM2.png}
+	\caption{Center of mass.}
+\end{subfigure}
+\caption{Results for the RH5 legs + torso for a full gait (6 steps).}
 \label{fig:rh5Torso_full_gait}
 \centering
 \end{figure}

@@ -1,0 +1,47 @@
+\chapter{Lecture 17: Motion Planning as Search, i.e. Complete Planning}
+Another tool for our toolbox: Complete Planning is one of the key problems left for us to tackle. This especially means to always find an answer to the question: Is it possible for this robot to reach a specific goal or not.
+
+Two state of the art approaches include
+\begin{itemize}
+\item Decompose non-convexity in problem, then search all decompositions
+\item Randomized motion problem
+\end{itemize}  
+
+The \textbf{future solution} might lay somewhere in between: While the randomized algorithms are extremely powerful, it somehow feels a bit strange that we do not make (partly) use of the geometric knowledge of the environment that we have from perception.
+
+
+\section{Artificial Intelligence as Search}
+Def: A planner is said to be \textbf{complete}, if it is guaranteed to find a solution if one exists.
+
+Def: A planner is said to be \textbf{globally optimal} if it finds the optimal plan.
+
+\section{Randomized Motion Planning}
+These algorithms are fairly simple, extremely powerful and became state of the art nowadays. They belong to the group of \textbf{sampling-based planners}. The RRT is one algorithm that can be applied to underactuated systems. 
+\subsection{Rapidly-Exploring Random Trees (RRTs)}
+The basic algorithm: 
+\begin{enumerate}
+\item Generate a random sample
+\item Discard the ones initialized within boundaries of objects
+\item Find closest point on current track
+\item Extend tree towards sample point
+\end{enumerate}
+\subsection{RRTs for Robots with Dynamics}
+It shows that RRTs even work surprisingly well for high-dimensional search spaces, i.e. robots with many DoFs. If you know the kinematics well. 
+
+
+\subsection{Variations and Extensions}
+Possible improvements are
+\begin{itemize}
+\item Better sampling distributions
+\item Better distance metric
+\item Better extension 
+\end{itemize}
+
+
+\section{Decomposition Methods}
+The idea:
+\begin{itemize}
+\item Decompose the environment into accessible regions, i.e regions where the quadrotor should stay within
+\item Search for all of these decompositions
+\end{itemize}
+This approach is an option, but it is an \textbf{very expensive} way for seeking towards completeness. 

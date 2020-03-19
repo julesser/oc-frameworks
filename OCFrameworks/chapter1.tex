@@ -193,7 +193,7 @@ Notes:
 
 \subsection{Introduction: Bipedal Walking in Crocoddyl}
 \begin{itemize}
-\item The desired foot step trajectory simply is an equally distributed line of knots specified via the desired stepheigh and steplength. 
+\item The desired foot step plan simply is an equally distributed line of knots specified via the desired stepheight and steplength. 
 \item A long walk consists of multiple gaitphases, each phase is a single shooting problem.
 \item These problems are generated with \textit{createWalkingProblem()} involving one left and one right foot step.
 \item Each shooting problem contains various locomotion phases
@@ -434,9 +434,11 @@ All previous results share a common pattern: While the trajectories for joint ve
 Increasing the state regression cost item by one dimension (from 1e1 to 1e2) leads to
 \begin{itemize}
 \item Periodic joint trajectories and
-\item Bounded joint limits. 
+\item Bounded joint limits.
+\item Not reaching the desired step height. 
 \end{itemize} 
-The results are shown in Figure \ref{fig:rh5_periodic}.
+Consequently, this approach is appeared not to be the right way to go. Alternative approaches could include setting up an equality constraint for the initial and terminal pose. 
+The (preliminary) results are shown in Figure \ref{fig:rh5_periodic}.
    
 \begin{figure}[h!]
 \centering
@@ -464,6 +466,11 @@ The results are shown in Figure \ref{fig:rh5_periodic}.
 
 \section{Results: RH5 Legs + Torso}
 The results from the last section give a first impression, of how optimal control for bipedal walking applied to RH5 can look like. The natural next step is to extend the analysed robot model with the torso. This an especially useful step towards first real-world experiments on the robot, since the computational unit is integrated within the torso and it therefore would be difficult to only control the RH5 legs. 
+
+\textbf{Note on the walking speed of videos and related CoM shifting:} 
+
+The real walking speed (~0.75m/s) is slowed down within the videos for proper analysis of the systems behavior. Since the desired speed is this high, the resulting CoM nearly doesn't shift at all, which is one of the key properties of dynamic walking.  
+
 
 \subsection{Necessary Adjustments}
 Including the torso in our analysis, we in particular include three additional DoFs (Body-Roll, Body-Pitch, Body-Yaw) that need to be considered. The following adjustments were taken:

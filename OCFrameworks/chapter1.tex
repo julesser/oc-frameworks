@@ -274,7 +274,7 @@ Differences to the existing one-target example include:
 \subsubsection{Results: Multiple Targets}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=.5\linewidth]{Media/Crocoddyl/ExArm/ArmSolution.png}
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/ExArm/ArmSolution.png}
 \caption{Multi-Point Optimal Control of the Manipulator for reaching four targets. The high-control peaks could be handled by a more advanced solver (e.g. box-ddp), but were not performed here.}
 \end{figure}
 
@@ -283,8 +283,8 @@ The Crocoddyl library offers an example for bipedal walking with the lower body 
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=.7\linewidth]{Media/Crocoddyl/ExBiped/TalosGait_Solution.png}
-\caption{Results for a walk with three gait-phases.}
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/ExBiped/TalosGait_Solution.png}
+\caption{Results for the talos legs performing a walk with three gait-phases.}
 \label{fig:TalosGait}
 \end{figure}
 
@@ -320,40 +320,22 @@ The integrated URDF parser in Crocoddyl instead, expects the path specified via 
 \item Adjust the contact frames for the Walking Problem.
 \end{itemize}
 
-\subsection{Performing two Steps}
-Results are shown in Figure \ref{fig:rh5_two_steps}.
-\begin{figure}[h!]
-\centering
-\begin{subfigure}{.4\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/2Steps/RH52Steps_Solution.png}
-  \caption{Optimal Trajectory and Conrol Inputs}
-\end{subfigure}%
-\begin{subfigure}{.4\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/2Steps/RH52Steps_Convergence.png}
-  \caption{Convergence of Solution}
-\end{subfigure}
-\caption{Results for a solved shooting problem defining two steps.}
-\label{fig:rh5_two_steps}
-\centering
-\end{figure}
 
 \subsection{Performing a Full Gait}
 Results for a full gait (6 consecutive steps) are shown in Figure \ref{fig:rh5_full_gait}.
 \begin{figure}[h!]
 \centering
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.7\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/RH5Gait_Solution.png}
   \caption{Solution for states and torques.}
 \end{subfigure}
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.7\textwidth}
   \centering
 \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/RH5Gait_CoM2.png}
 \caption{CoM results.}
 \end{subfigure}
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.7\textwidth}
   \centering
 \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/RH5Gait_ContactWrenches.png}
 \caption{Contact wrenches.}
@@ -367,12 +349,12 @@ Results for a full gait (6 consecutive steps) are shown in Figure \ref{fig:rh5_f
 It is possible to constrain the input torques via the limits that are parsed from the URDF. However, the correct solver (box-ddp) needs to be applied to the OC problem for considering these limits.  Results are shown in Figure \ref{fig:rh5_constrain_torque}
 \begin{figure}[h!]
 \centering
-\begin{subfigure}{.8\textwidth}
+\begin{subfigure}{1\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/BoundedInput/RH5GaitUbound50Percent_Solution.png}
   \caption{Solution for states and torques.}
 \end{subfigure}
-\begin{subfigure}{.8\textwidth}
+\begin{subfigure}{1\textwidth}
   \centering
 \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/BoundedInput/RH5GaitUbound50Percent_CoM.png}
 \caption{CoM results.}
@@ -387,12 +369,12 @@ The full gait has been initialized according to the pose specifications from the
 
 \begin{figure}[h!]
 \centering
-\begin{subfigure}{.8\textwidth}
+\begin{subfigure}{1\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/InitPoseVariants/RH5GaitInitNearZeroConfig_Solution.png}
   \caption{Solution for states and torques}.
 \end{subfigure}
-\begin{subfigure}{.8\textwidth}
+\begin{subfigure}{1\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/InitPoseVariants/RH5GaitInitNearZeroConfig_CoM.png}
 \caption{CoM results.}
@@ -406,12 +388,12 @@ The full gait has been initialized according to the pose specifications from the
 Initializing at the zero configuration turns out to be more critical. Sometimes the solver converges to a feasable solution (Figure \ref{fig:rh5_init_at_zero}), sometimes it does not find a proper solution (Figure \ref{fig:rh5_init_at_zero_failed_solver}).
 \begin{figure}[h!]
 \centering
-\begin{subfigure}{.8\textwidth}
+\begin{subfigure}{1\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/InitPoseVariants/RH5GaitInitZeroConfig_Solution.png}
   \caption{Solution for states and torques}.
 \end{subfigure}
-\begin{subfigure}{.8\textwidth}
+\begin{subfigure}{1\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/InitPoseVariants/RH5GaitInitZeroConfig_CoM.png}
 \caption{CoM results.}
@@ -442,17 +424,17 @@ The (preliminary) results are shown in Figure \ref{fig:rh5_periodic}.
    
 \begin{figure}[h!]
 \centering
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.7\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/FixedPeriodicity/RH5PeriodicGait_Solution.png}
   \caption{Solution for states and torques}.
 \end{subfigure}
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.7\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/FixedPeriodicity/RH5PeriodicGait_CoM.png}
 \caption{CoM results.}
 \end{subfigure}
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.7\textwidth}
   \centering
 \includegraphics[width=1\linewidth]{Media/Crocoddyl/RH5Legs/FixedPeriodicity/RH5PeriodicGait_ContactWrenches.png}
 \caption{Contact wrenches.}
@@ -469,7 +451,7 @@ The results from the last section give a first impression, of how optimal contro
 
 \textbf{Note on the walking speed of videos and related CoM shifting:} 
 
-The real walking speed (~0.75m/s) is slowed down within the videos for proper analysis of the systems behavior. Since the desired speed is this high, the resulting CoM nearly doesn't shift at all, which is one of the key properties of dynamic walking.  
+The real walking speed (~0.75m/s) is slowed down within the videos for proper analysis of the systems behavior. Since the desired speed is this high, the resulting CoM nearly doesn't shift at all, which is one of the key properties of dynamic walking. The same parameters hold for the simulation results for just the RH5 legs.  
 
 
 \subsection{Necessary Adjustments}

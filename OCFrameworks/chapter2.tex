@@ -1,0 +1,61 @@
+\chapter{DRAKE - MIT CSAIL}
+\section{Introduction}
+\subsection{Motivation}
+Drake \cite{drake} is a \textbf{C++ toolbox for}
+\begin{itemize}
+\item Analyzing the dynamics of robots
+\item Building control systems for robots
+\item Heavy emphasis on optimization-based design/analysis
+\end{itemize}
+
+Drake aims to \textbf{simulate} 
+\begin{itemize}
+\item Complex dynamics of robots (e.g. including friction, contact, aerodynamics etc.)
+\item Emphasis on exposing the structure in the governing equations (sparsity, analytical gradients, polynomial structure, uncertainty etc.)
+\item Making this information available for advanced planning, control, and analysis algorithms
+\end{itemize}
+
+Drake \textbf{provides}
+\begin{itemize}
+\item Python Interface
+\item Implementation of state-of-the-art algorithms
+\item Various examples
+\end{itemize}
+
+\subsection{Core Modules}
+Drakes functionality is incorporated within several modules. This section gives a brief overview. 
+\subsubsection{Modeling Dynamical Systems}
+Drake uses a Simulink-inspired description of dynamical systems.
+
+Includes basic building blocks (adders, integrators, delays, etc), physics models of mechanical systems, and a growing list of sensors, actuators, controllers, planners, estimators.
+\subsubsection{Solving Mathematical Programs}
+Drake's MathematicalProgram class is used to solve the mathematical optimization problem in the following form
+$$min_{x} f(x) \quad s.t. x \in S$$
+Depending on the formulation of the objective function $f$, and the structure of the constraint set $S$, Drake can solve the following categories of optimization problems
+\begin{itemize}
+\item Linear programming
+\item Quadratic programming 
+\item Nonlinear nonconvex programming
+\item Semidefinite programming
+\item Sum-of-squares programming
+\item Mixed-integer programming
+\end{itemize}
+Drake \textbf{automatically} calls suitable solvers for each category of optimization problem.
+\subsubsection{Multibody Kinematics and Dynamics}
+\begin{itemize}
+\item Drake's \textbf{constraint system} helps solve computational dynamics problems with algebraic constraints
+\item Drake approximates real-world physical \textbf{contact} phenomena with a combination of geometric techniques and response models.
+\end{itemize}
+
+\section{How-To}
+\subsection{Install}
+\subsection{Run Examples}
+
+
+\section{Working with the Examples}
+\subsection{Double Pendulum}
+\subsection{Cart-Pole}
+\subsection{Rimless Wheel}
+\subsection{Compass Gait}
+\subsection{Spring-Loaded Inverted Pendulum}
+

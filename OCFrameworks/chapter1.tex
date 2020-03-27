@@ -1,4 +1,9 @@
 \chapter{CROCODDYL - LAAS-CNRS}\label{chapter1}
+The first framework we were interested to analyze is named Crocoddyl and was first published within 2019. Crocoddyl turned out to provide a huge bandwith of examples related to legged robots (quadrupeds, bipeds) performing diverse movements under contact (simple walking, quadrupedal gait variations, jumping). 
+
+This chapter briefly introduces the library functionalities and summarizes the insights and results gained during the integration of a new robot model. Through the course if this work, a simplified model of the RH5 robot has been integrated into Crocoddyl and been used to generate simple bipedal walking trajectories. 
+
+ 
 \section{Introduction}
 \subsection{Motivation}
 Crocoddyl is an \textbf{optimal control library for robot control under contact sequence}. Its solver is based on an efficient Differential Dynamic Programming (DDP) algorithm. Crocoddyl computes optimal trajectories along with optimal feedback gains. It uses Pinocchio for fast computation of robot dynamics and its analytical derivatives \cite{crocoddylweb}. 
@@ -191,7 +196,7 @@ Notes:
 \textbf{State Limits (Pos/Vel)}: Position and Velocity limits can be handled via penalization, i.e. added as cost terms to the optimization problem.  
 \end{itemize}
 
-\subsection{Introduction: Bipedal Walking in Crocoddyl}
+\subsection{Introduction: Bipedal Walking in Crocoddyl}\label{sec:IntroBipedWalk}
 \begin{itemize}
 \item The desired foot step plan simply is an equally distributed line of knots specified via the desired stepheight and steplength. 
 \item A long walk consists of multiple gaitphases, each phase is a single shooting problem.
@@ -290,7 +295,7 @@ The Crocoddyl library offers an example for bipedal walking with the lower body 
 
   
   
-\section{Results: RH5 Legs}
+\section{Results: RH5 Legs}\label{sec:resultsRH5}
 Please note once again that all related plots and additional videos can be found in high-quality in the related github repository \cite{julesserOCFrameworks} of this project.
 \subsection{Navigating the Files}
 The main file for testing RH5 offers several options for setting up, analyzing and constraining the optimization problem of bipedal walking including

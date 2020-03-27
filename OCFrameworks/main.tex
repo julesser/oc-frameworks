@@ -51,7 +51,7 @@
 % Adds hyperlinks to references and ToC
 \usepackage{cite}
 \usepackage{hyperref}
-\hypersetup{hidelinks,linkcolor = black} % Changes the link color to black and hides the hideous red border that usually is created
+%\hypersetup{hidelinks,linkcolor = black} % Changes the link color to black and hides the hideous red border that usually is created
 
 % If multiple images are to be added, a folder (path) with all the images can be added here 
 \graphicspath{ {Figures/} }
@@ -70,7 +70,7 @@
 \selectlanguage{english}
 
 \author{Julian Eßer}
-\title{Comparison of Optimal Control Software Frameworks in the Context of Bipedal Walking}
+\title{Comparison of Optimal Control Frameworks in the Context of Bipedal Walking}
 
 %%%%% Adds the title page
 \begin{titlepage}
@@ -84,15 +84,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Text body starts here!
 \mainmatter
-\chapter{INTRODUCTION}
+\include{introduction}  
 
 \include{chapter1}
 
 \include{chapter2}
 
-\chapter{COMPARISON}
-
-\chapter{CONCLUSION AND OUTLOOK}
+\include{conclusion}
 
 \begin{appendices}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}

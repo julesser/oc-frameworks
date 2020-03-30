@@ -294,9 +294,13 @@ The Crocoddyl library offers an example for bipedal walking with the lower body 
 \end{figure}
 
   
-  
 \section{Results: RH5 Legs}\label{sec:resultsRH5}
-Please note once again that all related plots and additional videos can be found in high-quality in the related github repository \cite{julesserOCFrameworks} of this project.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/crocoddylRH5Legs.png}
+\caption{Visualization of the RH5 legs using the gepetto-viewer.}
+\end{figure}
+
 \subsection{Navigating the Files}
 The main file for testing RH5 offers several options for setting up, analyzing and constraining the optimization problem of bipedal walking including
 \begin{itemize}
@@ -456,6 +460,11 @@ The (preliminary) results are shown in Figure \ref{fig:rh5_periodic}.
 
 
 \section{Results: RH5 Legs + Torso}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\linewidth]{Media/Crocoddyl/crocoddylRH5Torso.png}
+\caption{Visualization of the RH5 legs + torso using the gepetto-viewer.}
+\end{figure}
 The results from the last section give a first impression, of how optimal control for bipedal walking applied to RH5 can look like. The natural next step is to extend the analysed robot model with the torso. This an especially useful step towards first real-world experiments on the robot, since the computational unit is integrated within the torso and it therefore would be difficult to only control the RH5 legs. 
 
 \textbf{Note on the walking speed of videos and related CoM shifting:} 

@@ -1,57 +1,8 @@
-\chapter{COMPARISON}
-This chapter offers a brief comparison of both frameworks in terms of generality, usability and bipedal walking capabilities. This comparison is from a very practical point of view and may be biased since the author investigated Crocoddyl more strongly than Drake.  Furthermore, this work is context-specific to generating optimal trajectories for a simple bipedal walking pattern.
+\chapter{CONCLUSION}
 
- 
-\section{Generality vs Specificity}
-Both frameworks differ considerably in the variety of problems that they are trying to takle and the amount of implemented functionalities. 
+Within this two-month student project it was possible to integrate the RH5 robot in the \textbf{Crocoddyl} framework and generate first successfull trajectories for a simple walk (see chapter \ref{sec:resultsRH5}). These preliminary results offer much space for improvement and future research opportunities.
 
-For solving optimal control problems, each of the frameworks follows its own path.
+The investigation of the \textbf{Drake} library was limited to simple passive dynamic walking models (see \ref{sec:drakeExamples}). An estimation of producing comparable bipedal walking results like in Crocoddyl within the Drake framework, revealed a workload of approximitive 40-60 hours (see section \ref{sec:BipedWalkCapabilities} for details). 
 
-\subsubsection{Overall Scope}
-
-Drake to a certain extend is a 'All in One' library since it contains modules for solving multibody dynamics, mathematical programs as well as a whole bunch of tools for modeling and analyzing systems to gain a deeper understanding of the underlying dynamics.
-On the opposite, Crocoddyl is designed for a very specific range of problems, namely to solve optimization problems for robots with multiple point-contacts. It depends on the Gepetto-Viewer for visualizing and the Pinnoccio library for kinematics formulation and dynamics calculations.
-
-\subsubsection{Optimal Control Solvers}
-
-Also the way the optimization problems are solved differ quite strong. Whereas Drake offers a wide range of available solvers, Crocoddyls solvers list in comparison is rather small and solely based on versions of the Differential Dynamic Programming (DDP) algorithm. 
-
-\subsubsection{Formulation of Trajectory Optimization}
-
-Finally, the way of \href{http://underactuated.csail.mit.edu/trajopt.html#section2}{discretising the continous time-problem} for the trajectory optimization methods differs. Crocoddyl on the one hand focuses on shooting methods, while Drake on the other hand utilizes direct transcription/collocation.
-
-
-\section{Usability}
-In general, the author considers Drake as well as Crocoddyl to be quite user-friendly, but Drake stands out with its excellent code documentation.
-
-\subsubsection{Python Bindings}
-The main reason for this assessment propably is the provision of python bindings within both libraries, which allows for rapid prototyping of examples. 
-
-\subsubsection{Installation}
-To this end, the installation procedure could be simplified a lot since it was sufficient to install the binaries under /opt and use a cloned version of the examples directory. Following this approach, the Drake binaries can be installed as usual, while Crocoddyl utilizes the \textit{robotpkg} manager.
-
-\subsubsection{Code Documentation}
-Drake offers a beautiful \href{https://drake.mit.edu/doxygen_cxx/index.html}{descripiton} of it's C++ API that also holds for most of the functionalities within pydrake. Crocoddyl on the other hand provides only a very sparse documentation, e.g. on solver functionalities or implemented contact models. 
-
-\subsubsection{Getting Started}
-What Crocoddyl lacks in code documentation is definitely made up for by an excellent collection of beginner-friendly tutorials! Drake also comes along with some beginner tutorials, but in the authors opinion the tend to be more abstract.
-
-\subsubsection{Example Functionalities}
-Also in the example domain Croccodyl can shine. Whereas Drake  solely offers examples related containing simple systems, Crocoddyl provides the user with readily accessible examples of complex legged robots (e.g. quadrupeds, humanoids) performing challenging tasks (e.g. walking, jumping).
-
-
-\section{Bipedal Walking Capabilities}
-The example of bipedal walking provided by the Crocoddyl library served as a comfortable starting point for integrating and testing the RH5  robot (see section \ref{sec:resultsRH5} for the results).
-
-On the contrary, Drake currently does not offer this luxury. The goal of this section is to estimate the effort necessary to produce equivalent results within the Drake library that have been achieved within Crocoddyl.
-
-% TODO: Add estimation of effort & possible issues producing bipedal walking with Drake 
-
-\section{Conclusion}
-% TODO: Add Table ++ + 0 - --
-
-
-
-
-
-
+In the end, the author considers \textbf{both framworks suitable for further research} and application to the RH5 robot. 
+Whereas Drake offers a more general framework for optimization-based analysis (various solvers, planner, controller etc.) and does not provide targeted examples for bipedal walking of highly-articulated robots, Crocoddyl focuses exactly on these kind of problems, offers great example functionalities, but also limits the available solvers to the special branch of DDP-based solvers.

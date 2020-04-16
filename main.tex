@@ -84,27 +84,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Text body starts here!
 \mainmatter
-\include{introduction}  
+\include{Chapter/introduction}  
 
-\include{chapter1}
+\include{Chapter/libCrocoddyl}
 
-\include{chapter2}
+\include{Chapter/libDrake}
 
-\include{comparison}
+\include{Chapter/comparison}
 
-\include{conclusion}
-
-
+\include{Chapter/conclusion}
 
 \pagebreak
 % Adding a bibliography if citations are used in the report
 \bibliographystyle{plain}
-\bibliography{../commonBibFile.bib}
+\bibliography{literature.bib}
 % Adds reference to the Bibliography in the ToC
 \addcontentsline{toc}{chapter}{\bibname}
-
 \pagebreak
-
-
 
 \end{document}

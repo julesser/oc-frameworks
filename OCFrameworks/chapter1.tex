@@ -500,19 +500,23 @@ The Crocoddyl library offers an example for bipedal walking with the lower body 
 \end{figure}
 
 \subsection{Navigating the Files}
-The main file for testing RH5 offers several options for setting up, analyzing and constraining the optimization problem of bipedal walking including
+The main file for testing RH5 offers several options for setting up, analyzing and constraining the optimization problem of bipedal walking. including
 \begin{itemize}
-\item Choosing a desired URDF 
+\item Creating a suitable URDF 
 \item Specifying gait length and variations in step length/height
 \item Vary the initial pose of the robot
 \item Constraining the torque input (Use different solver)
-\item Defining singular or multiple point contacts per foot (Use different class from biped utils)
 \end{itemize}
+
+The modified URDF file used for the experiments with the RH5 legs is located under
+
+\url{https://git.hb.dfki.de/jesser/abstract-urdf/-/blob/master/urdf/RH5Legs_PkgPath_PtContact.urdf1}.
+
 
 \subsection{Integration of the RH5 Legs into Crocoddyl}
 The main issue that had to be solved was related to the underlying URDF file of the robot. In particular: 
 \begin{itemize}
-\item Choosing one of our several files (abstract-smurf)
+\item Choosing one of our several files (abstract-urdf)
 \item Cutting out everything apart from the legs and the root joint
 \item Fixing the mesh file paths: 
 
@@ -678,6 +682,10 @@ Including the torso in our analysis, we in particular include three additional D
 \item Adjust the initial pose of the robot
 \item Extend the plotting functionalities for further analysis
 \end{itemize}
+
+The modified URDF file used for the experiments with the RH5 legs + torso is located under
+
+\url{https://git.hb.dfki.de/jesser/abstract-urdf/-/blob/master/urdf/RH5Torso_PkgPath_PtContact.urdf}.
 
 \subsection{Adopted Findings from Previous Analysis of the Legs}
 Within the previous lection different aspects have been covered. For the continuing analysis we will cherry-pick and apply the most promising ones. In particular, this means to 
